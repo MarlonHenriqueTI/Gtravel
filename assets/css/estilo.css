@@ -1,0 +1,88 @@
+.pad-3 {
+    padding: 3%;
+}
+
+.btn-primary {
+    background: #2ecc71!important;
+    transition: 0.5s;
+    border: 1px solid #2ecc71!important;
+}
+
+.btn-primary:focus, .btn-primary:active, .btn-primary:hover {
+    color: #2ecc71!important;
+    background: #fff!important;
+    border: 1px solid #2ecc71!important;
+}
+
+.img:before {
+    right: -368px!important;
+}
+
+.img-full {
+    width: 100%;
+    height: 100%;
+}
+
+.authentication-box {
+    background-image: url(../images/background.png);
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.mobile {
+    display: none;
+}
+
+.desktop {
+    display: block;
+}
+
+.font-primary {
+    color: #2ecc71!important;
+}
+
+.page-main-header .main-header-right .nav-right>ul>li:first-child {
+    width: auto;
+    margin: 0 0;
+}
+
+.link-menu {
+    color: #1b3155;
+}
+
+small {
+    color: #e67e22;
+    padding-left: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: #c1ebd293;
+}
+::-webkit-scrollbar {
+    width: 6px;
+    background: #c1ebd293;
+}
+::-webkit-scrollbar-thumb {
+    background: #2ecc71;
+}
+
+@media only screen and (max-width: 991px) {
+    .authentication-main .auth-innerright .card-body .theme-form {
+        margin-bottom: 0;
+        width: 100%;
+    }
+
+    .cont {
+        width: 95%;
+        height: auto;
+        padding: 5% 3% !important;
+    }
+
+    .mobile {
+        display: block;
+    }
+
+    .desktop {
+        display: none;
+    }
+}
