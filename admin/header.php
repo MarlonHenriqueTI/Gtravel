@@ -101,12 +101,19 @@ while ($administrador = mysqli_fetch_array($query)) {
                                 <li class="bg-light txt-dark"><a href="#">Todas </a> notificações</li>
                             </ul>
                         </li>
-                        <li class="onhover-dropdown"> <span class="media user-header"><img class="img-fluid" src="../assets/images/dashboard/user.png" alt=""></span>
+                        <li class="onhover-dropdown"> <span class="media user-header">
+                        <?php if(empty($foto)){?>
+                            <img class="img-fluid img-70 rounded-circle" src="../assets/images/user/7.jpg" alt="imagem usuario">
+                        <?php } else {?>
+                            <img class="img-fluid img-70 rounded-circle" src="../<?php echo $foto; ?>" alt="imagem usuario">
+                        <?php }?>
+                        </span>
                             <ul class="onhover-show-div profile-dropdown">
                                 <li class="gradient-primary">
                                     <h5 class="f-w-600 mb-0"><?php echo $nome ?></h5><span>Administrador</span>
                                 </li>
                                 <li><a href="perfil.php" class="link-menu"><i data-feather="user"> </i>Perfil</a></li>
+                                <li><a href="../logout.php" class="link-menu"><i data-feather="minus-circle"> </i>Logout</a></li>
                             </ul>
                         </li>
                     </ul>

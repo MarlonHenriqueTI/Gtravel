@@ -85,3 +85,71 @@ function fazerLogin($usuario, $senha, $conexao)
         header("Location: admin/index.php");
     }
 }
+
+
+/*funções de cadastro */
+function cadastrarAdmin($conexao, $nome, $username, $senha, $email)
+{
+    $senhacrip = md5($senha);
+    $query = "INSERT INTO `admin` (`username`, `email`, `senha`, `nome`) VALUES ('$username', '$email', '$senhacrip', '$nome')";
+    $resultado = mysqli_query($conexao, $query);
+    if (!$resultado) {
+        // monta o e-mail na variavel $body
+
+        $body = "===================================" . "\n";
+        $body = $body . "GTravel - Erro" . "\n";
+        $body = $body . "===================================" . "\n\n";
+        $body = $body . "Deu um erro para cadastrar um administrador no sistema, isso era o que estava na variavel resultado:\n";
+        $body = $body . var_dump($resultado) . "\n";
+        $body = $body . "===================================" . "\n";
+
+        // envia o email
+        mail('contato@marlonhenrique.com', 'GTravel - Erro ao cadastrar um administrador', $body, "From: GTravel!\r\n");
+        echo '<script>alert("Falha ao cadastrar administrador, nossa equipe ja recebeu essa falha por e-mail e estamos trabalhando para resolver, tente novamente mais tarde...");window.location.href="cadastrar-adm.php";</script>';
+    } else {
+        // monta o e-mail na variavel $body
+
+        $body = "===================================" . "\n";
+        $body = $body . "GTravel - Cadastro realizado" . "\n";
+        $body = $body . "===================================" . "\n\n";
+        $body = $body . "Seu cadastro foi realizado na plataforma GTravel, seguem os dados de acesso:\n"; //Aqui vai o telefone no e-mail
+        $body = $body . "Link: https://gtravel.com.br\n";
+        $body = $body . "Nome de usuário: " . $username . "\n";
+        $body = $body . "Senha: " . $senha . "\n";
+        $body = $body . "===================================" . "\n";
+
+        // envia o email
+        mail($email, 'GTravel - Seu cadastro foi realizado!', $body, "From: GTravel!\r\n");
+        echo "<script>alert('Cadastrado com sucesso!');window.location.href='administradores.php';</script>";
+    }
+}
+
+
+/*funções de seleção*/
+function selecionarAdmin($conexao, $id)
+{
+    $query = "SELECT * FROM `admin` WHERE `id` = '$id'";
+    $resultado = mysqli_query($conexao, $query);
+    if (!$resultado) {
+        echo '<script>alert("Administrador não encontrado");</script>';
+    } else {
+        foreach ($resultado as $key) {
+            $res[] = $key;
+        }
+        return $res[0];
+    }
+}
+
+function selecionarTodosAdmin($conexao)
+{
+    $query = "SELECT * FROM `admin`";
+    $resultado = mysqli_query($conexao, $query);
+    if (!$resultado) {
+        echo '<script>alert("Administrador não encontrado");</script>';
+    } else {
+        foreach ($resultado as $key) {
+            $res[] = $key;
+        }
+        return $res;
+    }
+}

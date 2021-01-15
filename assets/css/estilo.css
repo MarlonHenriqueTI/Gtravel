@@ -66,6 +66,15 @@ small {
     background: #2ecc71;
 }
 
+.page-main-header .main-header-right .nav-right.right-menu ul li .user-header img {
+    width: 60px !important;
+}
+
+
+
+.custom-card .card-footer {
+    padding: 3%;
+}
 @media only screen and (max-width: 991px) {
     .authentication-main .auth-innerright .card-body .theme-form {
         margin-bottom: 0;

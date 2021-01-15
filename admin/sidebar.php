@@ -30,7 +30,8 @@
              <li><a class="bar-icons" href="javascript:void(0)"><i class="pe-7s-id"></i><span>Usuários</span></a>
                  <ul class="iconbar-mainmenu custom-scrollbar">
                      <li class="iconbar-header">Usuários</li>
-                     <li><a href="#">Cadastrar Novo Administrador</a></li>
+                     <li><a href="cadastrar-adm.php">Cadastrar Novo Administrador</a></li>
+                     <li><a href="administradores.php">Todos Administradores Cadastrados</a></li>
                  </ul>
              </li>
              <li><a class="bar-icons" href="javascript:void(0)"><i class="pe-7s-graph3"></i><span>Relatórios</span></a>
