@@ -1,7 +1,12 @@
 function deletar(id, tabela) {
-    if (confirm("Tem certeza que deseja remover este registro? Esta ação não tem volta.")) {
-        window.location.href = "http://gtravel.com.br/db/functions.php?deletar=sim&id=" + id + "&tabela=" + tabela;
+    if (id == 1) {
+        alert("Este usuário é um desenvolvedor, não é possivel excluir um desenvolvedor!");
+    } else {
+        if (confirm("Tem certeza que deseja remover este registro? Esta ação não tem volta.")) {
+            window.location.href = "http://gtravel.com.br/db/functions.php?deletar=sim&id=" + id + "&tabela=" + tabela;
+        }
     }
+
 }
 
 $(document).ready(function () {

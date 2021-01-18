@@ -58,15 +58,25 @@ $administradores = selecionarTodosAdmin($conexao);
                                 <h6><?php echo $adm['username']; ?></h6>
                             </div>
                             <div class="card-footer row">
-                                <div class="col-4 col-sm-4">
-                                    <a href="#" class="btn btn-outline-primary">Ver Usuário</a>
-                                </div>
-                                <div class="col-4 col-sm-4">
-                                    <a href="#" class="btn btn-outline-warning">Editar Usuário</a>
-                                </div>
-                                <div class="col-4 col-sm-4">
-                                    <a href="#" class="btn btn-outline-danger" onclick="deletar(<?php echo $adm['id'];?>, 'admin')">Excluir Usuário</a>
-                                </div>
+                                <?php if ($id != $adm['id']) { ?>
+                                    <div class="col-4 col-sm-4">
+                                        <a href="single-admin.php?id=<?php echo $adm['id']; ?>" class="btn btn-outline-primary">Ver Usuário</a>
+                                    </div>
+                                    <div class="col-4 col-sm-4">
+                                        <?php if ($adm['id'] == 1) { ?>
+                                            <button class="btn btn-outline-warning">Não editavel</button>
+                                        <?php } else { ?>
+                                            <a href="editar-admin.php?id=<?php echo $adm['id']; ?>" class="btn btn-outline-warning">Editar Usuário</a>
+                                        <?php } ?>
+                                    </div>
+                                    <div class="col-4 col-sm-4">
+                                        <a href="#" class="btn btn-outline-danger" onclick="deletar(<?php echo $adm['id']; ?>, 'admin')">Excluir Usuário</a>
+                                    </div>
+                                <?php } else { ?>
+                                    <div class="col-12 col-sm-12">
+                                        <a href="single-admin.php?id=<?php echo $adm['id']; ?>">Ir para o meu perfil</a>
+                                    </div>
+                                <?php } ?>
                             </div>
                         </div>
                     </div>
@@ -83,5 +93,7 @@ $administradores = selecionarTodosAdmin($conexao);
     </div>
     <!-- Container-fluid Ends-->
 </div>
+
+
 
 <?php include('footer.php'); ?>
