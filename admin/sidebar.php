@@ -20,10 +20,10 @@
              <li><a class="bar-icons" href="javascript:void(0)"><i class="pe-7s-diamond"></i><span>Hoteis</span></a>
                  <ul class="iconbar-mainmenu custom-scrollbar">
                      <li class="iconbar-header">Hoteis</li>
-                     <li><a href="#">Cadastrar Novo Hotel</a></li>
-                     <li><a href="#">Hoteis Cadastrados</a></li>
+                     <li><a href="cadastrar-hotel.php">Cadastrar Novo Hotel</a></li>
+                     <li><a href="hoteis.php">Hoteis Cadastrados</a></li>
                      <li class="iconbar-header">Governança</li>
-                     <li><a href="#">Ver Camareiras Cadastradas Por Hotal</a></li>
+                     <li><a href="#">Ver Camareiras Cadastradas Por Hotel</a></li>
                      <li><a href="#">Ver Todas As Camareiras Cadastradas</a></li>
                  </ul>
              </li>

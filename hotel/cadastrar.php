@@ -30,3 +30,20 @@ if($op == 'hotel') {
     $username = $_POST['username'];
     cadastrarHotel($conexao, $nome_responsavel, $cpf_cnpj, $razao_social, $rua, $numero, $bairro, $cidade, $estado, $pais, $cep, $complemento, $email, $senha, $username, $nome_hotel );
 }
+
+if($op == 'hospede') {
+    $nome = $_POST['nome'];
+    $email = $_POST['email'];
+    $telefone = $_POST['telefone'];
+    $rua = $_POST['rua'];
+    $numero = $_POST['numero'];
+    $cep = $_POST['cep'];
+    $bairro = $_POST['bairro'];
+    $estado = $_POST['uf'];
+    $cidade = $_POST['cidade'];
+    $idade = $_POST['idade'];
+    $sexo = $_POST['sexo'];
+    $complemento = $_POST['complemento'];
+    $cpf = $_POST['cpf'];
+    cadastrarHospede($conexao, $nome, $email, $telefone, $rua, $numero, $cep, $bairro, $estado, $cidade, $idade, $sexo, $complemento, $cpf);
+}

@@ -12,7 +12,7 @@ $email = $_SESSION["user_portal"];
 $paginaLink = basename($_SERVER['SCRIPT_NAME']);
 
 include('../db/conecta-db.php');
-$consulta = "SELECT * from admin where email = '$email'";
+$consulta = "SELECT * from hotel where email = '$email'";
 $query = mysqli_query($conexao, $consulta);
 if (!$query) {
     echo "<script>Falha ao capturar email</script>";
@@ -21,7 +21,7 @@ if (!$query) {
 
 while ($administrador = mysqli_fetch_array($query)) {
     $username = $administrador["username"];
-    $nome = $administrador["nome"];
+    $nome = $administrador["nome_responsavel"];
     $id = $administrador["id"];
     $foto = $administrador["foto"];
 }
@@ -41,11 +41,11 @@ while ($administrador = mysqli_fetch_array($query)) {
     <meta name="author" content="Marlon Henrique">
     <link rel="icon" href="../assets/images/favicon.ico" type="image/x-icon">
     <link rel="shortcut icon" href="../assets/images/favicon.ico" type="image/x-icon">
-    <title>Gtravel - <?php echo $nome ?></title>
+    <title>Gtravel - <?php echo $username; ?></title>
     <!-- Google font-->
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
     <!-- Font Awesome-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
     <!-- ico-font-->
     <link rel="stylesheet" type="text/css" href="../assets/css/icofont.css">
     <!-- Themify icon-->
@@ -101,12 +101,19 @@ while ($administrador = mysqli_fetch_array($query)) {
                                 <li class="bg-light txt-dark"><a href="#">Todas </a> notificações</li>
                             </ul>
                         </li>
-                        <li class="onhover-dropdown"> <span class="media user-header"><img class="img-fluid" src="../assets/images/dashboard/user.png" alt=""></span>
+                        <li class="onhover-dropdown"> <span class="media user-header">
+                        <?php if(empty($foto)){?>
+                            <img class="img-fluid img-70 rounded-circle" src="../assets/images/user/7.jpg" alt="imagem usuario">
+                        <?php } else {?>
+                            <img class="img-fluid img-70 rounded-circle" src="../<?php echo $foto; ?>" alt="imagem usuario">
+                        <?php }?>
+                        </span>
                             <ul class="onhover-show-div profile-dropdown">
                                 <li class="gradient-primary">
-                                    <h5 class="f-w-600 mb-0"><?php echo $nome ?></h5><span>Administrador</span>
+                                    <h5 class="f-w-600 mb-0"><?php echo $nome ?></h5><span>Administrador de hotel</span>
                                 </li>
                                 <li><a href="perfil.php" class="link-menu"><i data-feather="user"> </i>Perfil</a></li>
+                                <li><a href="../logout.php" class="link-menu"><i data-feather="minus-circle"> </i>Logout</a></li>
                             </ul>
                         </li>
                     </ul>

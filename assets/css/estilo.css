@@ -70,11 +70,51 @@ small {
     width: 60px !important;
 }
 
+label {
+    max-width: 100%!important;
+}
 
+input[type="search"] {
+    background: #b6f1b554;
+}
+
+select {
+    max-width: 100%!important;;
+}
 
 .custom-card .card-footer {
     padding: 3%;
 }
+
+.card-footer.disponivel {
+    padding: 6%!important;
+    background: green;
+}
+
+.card-footer.ocupado {
+    padding: 6%!important;
+    background: red;
+}
+
+.card-footer.limpeza {
+    padding: 6%!important;
+    background: rgb(41, 131, 190);
+}
+
+.card-footer.manutencao {
+    padding: 6%!important;
+    background: yellow;
+}
+
+.card-body.apt {
+    padding: 20px 20px 50px;
+    color: #464545;
+}
+
+.titulo-form {
+    color: #2ECC71;
+}
+
 @media only screen and (max-width: 991px) {
     .authentication-main .auth-innerright .card-body .theme-form {
         margin-bottom: 0;

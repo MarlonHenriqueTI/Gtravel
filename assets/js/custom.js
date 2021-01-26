@@ -15,7 +15,55 @@ $(document).ready(function () {
     $('[name=cep]').mask('00000-000');
     $('[name=whatsapp]').mask('(00) 0 0000-0000');
 
+    $('[name=cpf_cnpj]').keydown(function(){
+        try {
+            $('[name=cpf_cnpj]').unmask();
+        } catch (e) {}
+    
+        var tamanho = $('[name=cpf_cnpj]').val().length;
+    
+        if(tamanho < 11){
+            $('[name=cpf_cnpj]').mask("999.999.999-99");
+        } else {
+            $('[name=cpf_cnpj]').mask("99.999.999/9999-99");
+        }
+    
+        // ajustando foco
+        var elem = this;
+        setTimeout(function(){
+            // mudo a posição do seletor
+            elem.selectionStart = elem.selectionEnd = 10000;
+        }, 0);
+        // reaplico o valor para mudar o foco
+        var currentValue = $(this).val();
+        $(this).val('');
+        $(this).val(currentValue);
+    });
 
+    $('[name=cpf_cnpj_empresa]').keydown(function(){
+        try {
+            $('[name=cpf_cnpj_empresa]').unmask();
+        } catch (e) {}
+    
+        var tamanho = $('[name=cpf_cnpj_empresa]').val().length;
+    
+        if(tamanho < 11){
+            $('[name=cpf_cnpj_empresa]').mask("999.999.999-99");
+        } else {
+            $('[name=cpf_cnpj_empresa]').mask("99.999.999/9999-99");
+        }
+    
+        // ajustando foco
+        var elem = this;
+        setTimeout(function(){
+            // mudo a posição do seletor
+            elem.selectionStart = elem.selectionEnd = 10000;
+        }, 0);
+        // reaplico o valor para mudar o foco
+        var currentValue = $(this).val();
+        $(this).val('');
+        $(this).val(currentValue);
+    });
 
     // Registra o evento blur do campo "cep", ou seja, a pesquisa será feita
     // quando o usuário sair do campo "cep"
@@ -41,7 +89,7 @@ $(document).ready(function () {
         $.getJSON(url, function (dadosRetorno) {
             try {
                 // Preenche os campos de acordo com o retorno da pesquisa
-                $("[name=endereco]").val(dadosRetorno.logradouro);
+                $("[name=rua]").val(dadosRetorno.logradouro);
                 $("[name=bairro]").val(dadosRetorno.bairro);
                 $("[name=cidade]").val(dadosRetorno.localidade);
                 $("[name=uf]").val(dadosRetorno.uf);
@@ -49,4 +97,6 @@ $(document).ready(function () {
         });
     });
 
+
 });
+

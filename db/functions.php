@@ -59,7 +59,7 @@ function fazerLogin($usuario, $senha, $conexao)
         if (!$acesso) {
             die("Falha na consulta ao banco");
         }
-
+        $informacao = mysqli_fetch_assoc($acesso);
         if (empty($informacao)) {
             $login = "SELECT * ";
             $login .= "FROM hotel ";
@@ -69,7 +69,7 @@ function fazerLogin($usuario, $senha, $conexao)
             if (!$acesso) {
                 die("Falha na consulta ao banco");
             }
-
+            $informacao = mysqli_fetch_assoc($acesso);
             if (empty($informacao)) {
                 echo "<script language='javascript' type='text/javascript'>alert('Opssss... tem algo errado, confira seu login e senha por favor e tente novamente...');window.location.href='javascript:history.back()';</script>";
             } else {
@@ -124,6 +124,64 @@ function cadastrarAdmin($conexao, $nome, $username, $senha, $email)
     }
 }
 
+function cadastrarHotel($conexao, $nome_responsavel, $cpf_cnpj, $razao_social, $rua, $numero, $bairro, $cidade, $estado, $pais, $cep, $complemento, $email, $senha, $username, $nome_hotel )
+{
+    $senhacrip = md5($senha);
+    $query = "INSERT INTO `hotel`(`nome_responsavel`, `cpf_cnpj`, `razao_social`, `rua`, `numero`, `bairro`, `cidade`, `estado`, `pais`, `cep`, `complemento`, `email`, `senha`, `username`, `nome_hotel`) VALUES ('$nome_responsavel', '$cpf_cnpj', '$razao_social', '$rua', '$numero', '$bairro', '$cidade', '$estado', '$pais', '$cep', '$complemento', '$email', '$senhacrip', '$username', '$nome_hotel')";
+    $resultado = mysqli_query($conexao, $query);
+    if (!$resultado) {
+        // monta o e-mail na variavel $body
+
+        $body = "===================================" . "\n";
+        $body = $body . "GTravel - Erro" . "\n";
+        $body = $body . "===================================" . "\n\n";
+        $body = $body . "Deu um erro para cadastrar um hotel no sistema, isso era o que estava na variavel resultado:\n";
+        $body = $body . var_dump($resultado) . "\n";
+        $body = $body . "===================================" . "\n";
+
+        // envia o email
+        mail('contato@marlonhenrique.com', 'GTravel - Erro ao cadastrar um administrador', $body, "From: GTravel!\r\n");
+        echo '<script>alert("Falha ao cadastrar hotel, nossa equipe ja recebeu essa falha por e-mail e estamos trabalhando para resolver, tente novamente mais tarde...");window.location.href="cadastrar-adm.php";</script>';
+    } else {
+        // monta o e-mail na variavel $body
+
+        $body = "===================================" . "\n";
+        $body = $body . "GTravel - Cadastro realizado" . "\n";
+        $body = $body . "===================================" . "\n\n";
+        $body = $body . "Seu cadastro foi realizado na plataforma GTravel, seguem os dados de acesso:\n"; //Aqui vai o telefone no e-mail
+        $body = $body . "Link: https://gtravel.com.br\n";
+        $body = $body . "Nome de usuário: " . $username . "\n";
+        $body = $body . "Senha: " . $senha . "\n";
+        $body = $body . "===================================" . "\n";
+
+        // envia o email
+        mail($email, 'GTravel - Seu cadastro foi realizado!', $body, "From: GTravel!\r\n");
+        echo "<script>alert('Cadastrado com sucesso!');window.location.href='hoteis.php';</script>";
+    }
+}
+
+function cadastrarHospede($conexao, $nome, $email, $telefone, $rua, $numero, $cep, $bairro, $estado, $cidade, $idade, $sexo, $complemento, $cpf)
+{
+    $query = "INSERT INTO `hospede`(`nome`, `email`, `telefone`, `rua`, `numero`, `cep`, `bairro`, `estado`, `cidade`, `idade`, `sexo`, `complemento`, `cpf`) VALUES ('$nome', '$email', '$telefone', '$rua', '$numero', '$cep', '$bairro', '$estado', '$cidade', '$idade', '$sexo', '$complemento', '$cpf')";
+    $resultado = mysqli_query($conexao, $query);
+    if (!$resultado) {
+        // monta o e-mail na variavel $body
+
+        $body = "===================================" . "\n";
+        $body = $body . "GTravel - Erro" . "\n";
+        $body = $body . "===================================" . "\n\n";
+        $body = $body . "Deu um erro para cadastrar um hospede no sistema, isso era o que estava na variavel resultado:\n";
+        $body = $body . var_dump($resultado) . "\n";
+        $body = $body . "===================================" . "\n";
+
+        // envia o email
+        mail('contato@marlonhenrique.com', 'GTravel - Erro ao cadastrar um hospede', $body, "From: GTravel!\r\n");
+        echo '<script>alert("Falha ao cadastrar hospede, nossa equipe ja recebeu essa falha por e-mail e estamos trabalhando para resolver, tente novamente mais tarde...");window.location.href="cadastrar-cliente.php";</script>';
+    } else {
+        echo "<script>alert('Cadastrado com sucesso!');window.location.href='hospedes.php';</script>";
+    }
+}
+
 
 /*funções de seleção*/
 function selecionarAdmin($conexao, $id)
@@ -146,6 +204,34 @@ function selecionarTodosAdmin($conexao)
     $resultado = mysqli_query($conexao, $query);
     if (!$resultado) {
         echo '<script>alert("Administrador não encontrado");</script>';
+    } else {
+        foreach ($resultado as $key) {
+            $res[] = $key;
+        }
+        return $res;
+    }
+}
+
+function selecionarTodosHoteis($conexao)
+{
+    $query = "SELECT * FROM `hotel`";
+    $resultado = mysqli_query($conexao, $query);
+    if (!$resultado) {
+        echo '<script>alert("Hotel não encontrado");</script>';
+    } else {
+        foreach ($resultado as $key) {
+            $res[] = $key;
+        }
+        return $res;
+    }
+}
+
+function selecionarTodosHospedes($conexao)
+{
+    $query = "SELECT * FROM `hospede`";
+    $resultado = mysqli_query($conexao, $query);
+    if (!$resultado) {
+        echo '<script>alert("Hospede não encontrado");</script>';
     } else {
         foreach ($resultado as $key) {
             $res[] = $key;
