@@ -40,7 +40,7 @@
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label>RG</label>
-                                            <input type="text" class="form-control" name="RG" required placeholder="RG do cliente">
+                                            <input type="text" class="form-control" name="rg" required placeholder="RG do cliente">
                                         </div>
                                     </div>
                                     <div class="col-md-6">

@@ -58,6 +58,7 @@ while ($administrador = mysqli_fetch_array($query)) {
     <!-- Plugins css start-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pe7-icon@1.0.4/dist/dist/pe-icon-7-stroke.min.css">
     <!-- Plugins css Ends-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.5.1/main.min.css">
     <!-- Bootstrap css-->
     <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.css">
     <!-- App css-->

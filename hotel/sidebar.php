@@ -21,51 +21,51 @@
                  <ul class="iconbar-mainmenu custom-scrollbar">
                      <li class="iconbar-header">Reservas</li>
                      <li><a href="nova-reserva.php">Nova Reserva</a></li>
-                     <li><a href="hoteis.php">Gerenciar reservas</a></li>
-                     <li><a href="hoteis.php">Mapa De Ocupação</a></li>
+                     <li><a href="reservas.php">Gerenciar Reservas</a></li>
+                     <li><a href="mapa-ocupacao.php">Mapa De Ocupação</a></li>
                      <li class="iconbar-header">Hotel</li>
-                     <li><a href="hoteis.php">Quartos</a></li>
-                     <li><a href="hoteis.php">Cadastrar Novo Quarto</a></li>
+                     <li><a href="quartos.php">Quartos</a></li>
+                     <li><a href="cadastrar-quarto.php">Cadastrar Novo Quarto</a></li>
                  </ul>
              </li>
              <li><a class="bar-icons" href="javascript:void(0)"><i class="pe-7s-id"></i><span>Financeiro</span></a>
                  <ul class="iconbar-mainmenu custom-scrollbar">
                      <li class="iconbar-header">Contas</li>
-                     <li><a href="cadastrar-adm.php">Contas A Pagar</a></li>
-                     <li><a href="administradores.php">Contas A Receber</a></li>
-                     <li><a href="administradores.php">Baixa Financeira</a></li>
+                     <li><a href="contas-pagar.php">Contas A Pagar</a></li>
+                     <li><a href="contas-receber.php">Contas A Receber</a></li>
+                     <li><a href="baixa-financeira.php">Baixa Financeira</a></li>
                      <li class="iconbar-header">Contas Bancarias</li>
-                     <li><a href="administradores.php">Integração Bancária</a></li>
-                     <li><a href="administradores.php">Gerenciamento De Conta Bancaria</a>
+                     <li><a href="integracao-bancaria.php">Integração Bancária</a></li>
+                     <li><a href="contas-bancarias.php">Gerenciamento De Conta Bancaria</a>
                      </li><li class="iconbar-header">Maquina De Cartão</li>
-                     <li><a href="administradores.php">Maquina de cartão</a></li>
+                     <li><a href="maquina-cartao.php">Maquina de cartão</a></li>
                  </ul>
              </li>
              <li><a class="bar-icons" href="javascript:void(0)"><i class="pe-7s-graph3"></i><span>Governança</span></a>
                  <ul class="iconbar-mainmenu custom-scrollbar">
                      <li class="iconbar-header">Camareiras</li>
-                     <li><a href="#">Cadastrar Camareira</a></li>
-                     <li><a href="#">Camareiras</a></li>
+                     <li><a href="cadastrar-camareira.php">Cadastrar Camareira</a></li>
+                     <li><a href="camareiras.php">Camareiras</a></li>
                      <li class="iconbar-header">Limpeza</li>
-                     <li><a href="#">Histórico De Limpeza</a></li>
-                     <li><a href="#">Definir Limpeza</a></li>
+                     <li><a href="limpeza.php">Histórico De Limpeza</a></li>
+                     <li><a href="cadastrar-limpeza.php">Definir Limpeza</a></li>
                  </ul>
              </li>
              <li><a class="bar-icons" href="javascript:void(0)"><i class="pe-7s-graph3"></i><span>Plano De Contas</span></a>
                  <ul class="iconbar-mainmenu custom-scrollbar">
                      <li class="iconbar-header">Plano De Contas</li>
-                     <li><a href="#">Plano De Contas</a></li>
+                     <li><a href="plano-contas.php">Plano De Contas</a></li>
                  </ul>
              </li>
              <li><a class="bar-icons" href="javascript:void(0)"><i class="pe-7s-graph3"></i><span>Relatórios</span></a>
                  <ul class="iconbar-mainmenu custom-scrollbar">
                      <li class="iconbar-header">Previsão De Ocupação</li>
-                     <li><a href="#">Previsão De Chegadas</a></li>
-                     <li><a href="#">Relatório Mensal</a></li>
-                     <li><a href="#">Contas A Pagar</a></li>
-                     <li><a href="#">Contas A Receber</a></li>
-                     <li><a href="#">DRE</a></li>
-                     <li><a href="#">Relatório Por Plano De Contas</a></li>
+                     <li><a href="previsao-chegadas.php">Previsão De Chegadas</a></li>
+                     <li><a href="relatorio-mensal.php">Relatório Mensal</a></li>
+                     <li><a href="relatorio-contas-pagar.php">Contas A Pagar</a></li>
+                     <li><a href="relatorio-contas-receber.php">Contas A Receber</a></li>
+                     <li><a href="dre.php">DRE</a></li>
+                     <li><a href="relatorio-plano-de-contas.php">Relatório Por Plano De Contas</a></li>
                  </ul>
              </li>
          </ul>
