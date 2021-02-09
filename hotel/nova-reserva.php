@@ -80,6 +80,21 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
+                                            <label class="titulo-form">Status</label>
+                                            <select name="status" class="form-control">
+                                                <option value="Pago">Pago</option>
+                                                <option value="Pendente">Pendente</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Numero de hospedes</label>
+                                            <input type="number" class="form-control" name="hospedes">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
                                             <label class="titulo-form">Pagamento</label>
                                             <select name="pagamento" class="form-control">
                                                 <option value="A vista">A vista</option>
@@ -92,29 +107,29 @@
                                     <div class="col-md-2">
                                         <div class="form-group">
                                             <label class="titulo-form">Check-In</label>
-                                            <input type="datetime-local" class="form-control" name="checkin" required>
+                                            <input type="date" class="form-control" name="checkin" required>
                                         </div>
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-group">
                                             <label class="titulo-form">Check-Out</label>
-                                            <input type="datetime-local" class="form-control" name="checkout">
+                                            <input type="date" class="form-control" name="checkout">
                                         </div>
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-group">
                                             <label class="titulo-form">UH</label>
-                                            <select name="uh" class="form-control">
-                                                <option value="Quarto 145">Quarto 145</option>
-                                                <option value="Quarto 146">Quarto 146</option>
-                                                <option value="Quarto 147">Quarto 147</option>
-                                                <option value="Quarto 148">Quarto 148</option>
-                                                <option value="Quarto 149">Quarto 149</option>
+                                            <?php $dados = selecionarTodosQuartos($conexao); ?>
+                                            <select name="quarto" class="form-control">
+                                            <?php foreach($dados as $key) { ?>}
+                                                <option value="<?php echo $key['id']; ?>"><?php echo $key['nome']; ?></option>
+                                            <?php } ?>
                                             </select>
                                         </div>
                                     </div>
                                 </div>
                                 <input type="hidden" name="op" value="reserva">
+                                <input type="hidden" name="id" value="<?php echo $id; ?>">
                                 <div class="form-footer">
                                     <button class="btn btn-primary btn-block btn-pill">Cadastrar</button>
                                 </div>

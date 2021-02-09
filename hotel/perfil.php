@@ -59,6 +59,32 @@
                           <button class="btn btn-primary btn-block btn-pill">Salvar</button>
                         </div>
                       </form>
+
+                      <form class="theme-form" method="POST" action="alterar.php" style="margin-top: 20px;">
+                        <div class="row mb-2">
+                          <div class="col">
+                            <h3 class="mb-1">Integração Hsystem</h3>
+                            <p class="mb-4">Preencha os dados da sua conta na HSYSTEM para integrar</p>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label class="form-label">ID do hotel</label>
+                          <input class="form-control" type="text" name="hotelId" placeholder="<?php echo $hotelId; ?>" value="<?php echo $hotelId; ?>">
+                        </div>
+                        <div class="form-group">
+                          <label class="form-label">Username</label>
+                          <input class="form-control" type="text" name="userName" placeholder="<?php echo $userNameHsystem; ?>" value="<?php echo $userNameHsystem; ?>">
+                        </div>
+                        <div class="form-group">
+                          <label class="form-label">Senha</label>
+                          <input class="form-control" type="password" placeholder="<?php echo $password; ?>" name="password"  value="<?php echo $password; ?>">
+                        </div>
+                        <input type="hidden" name="op" value="hsystem">
+                        <input type="hidden" name="id" value="<?php echo $id; ?>">
+                        <div class="form-footer">
+                          <button class="btn btn-primary btn-block btn-pill">Salvar</button>
+                        </div>
+                      </form>
                     </div>
                   </div>
                 </div>

@@ -95,6 +95,7 @@
                                     </select>
                                 </div>
                                 <input type="hidden" name="op" value="hospede">
+                                <input type="hidden" name="id" value="<?php echo $id; ?>">
                                 <div class="form-footer">
                                     <button class="btn btn-primary btn-block btn-pill">Cadastrar</button>
                                 </div>

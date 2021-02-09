@@ -10,14 +10,14 @@
                      <li><a href="index.php">Mapa de quartos</a></li>
                  </ul>
              </li>
-             <li><a class="bar-icons" href="javascript:void(0)"><i class="pe-7s-portfolio"></i><span>Hospedes</span></a>
+             <li><a class="bar-icons" href="javascript:void(0)"><i class="pe-7s-user"></i><span>Hospedes</span></a>
                  <ul class="iconbar-mainmenu custom-scrollbar">
                      <li class="iconbar-header">Hospedes</li>
                      <li><a href="cadastrar-cliente.php">Cadastrar Hospede</a></li>
                      <li><a href="hospedes.php">Hospedes Cadastrados</a></li>
                  </ul>
              </li>
-             <li><a class="bar-icons" href="javascript:void(0)"><i class="pe-7s-diamond"></i><span>Meu Hotel</span></a>
+             <li><a class="bar-icons" href="javascript:void(0)"><i class="pe-7s-culture"></i><span>Meu Hotel</span></a>
                  <ul class="iconbar-mainmenu custom-scrollbar">
                      <li class="iconbar-header">Reservas</li>
                      <li><a href="nova-reserva.php">Nova Reserva</a></li>
@@ -28,7 +28,7 @@
                      <li><a href="cadastrar-quarto.php">Cadastrar Novo Quarto</a></li>
                  </ul>
              </li>
-             <li><a class="bar-icons" href="javascript:void(0)"><i class="pe-7s-id"></i><span>Financeiro</span></a>
+             <li><a class="bar-icons" href="javascript:void(0)"><i class="pe-7s-cash"></i><span>Financeiro</span></a>
                  <ul class="iconbar-mainmenu custom-scrollbar">
                      <li class="iconbar-header">Contas</li>
                      <li><a href="contas-pagar.php">Contas A Pagar</a></li>
@@ -41,7 +41,7 @@
                      <li><a href="maquina-cartao.php">Maquina de cartão</a></li>
                  </ul>
              </li>
-             <li><a class="bar-icons" href="javascript:void(0)"><i class="pe-7s-graph3"></i><span>Governança</span></a>
+             <li><a class="bar-icons" href="javascript:void(0)"><i class="pe-7s-user-female"></i><span>Governança</span></a>
                  <ul class="iconbar-mainmenu custom-scrollbar">
                      <li class="iconbar-header">Camareiras</li>
                      <li><a href="cadastrar-camareira.php">Cadastrar Camareira</a></li>
@@ -51,7 +51,7 @@
                      <li><a href="cadastrar-limpeza.php">Definir Limpeza</a></li>
                  </ul>
              </li>
-             <li><a class="bar-icons" href="javascript:void(0)"><i class="pe-7s-graph3"></i><span>Plano De Contas</span></a>
+             <li><a class="bar-icons" href="javascript:void(0)"><i class="pe-7s-albums"></i><span>Plano De Contas</span></a>
                  <ul class="iconbar-mainmenu custom-scrollbar">
                      <li class="iconbar-header">Plano De Contas</li>
                      <li><a href="plano-contas.php">Plano De Contas</a></li>

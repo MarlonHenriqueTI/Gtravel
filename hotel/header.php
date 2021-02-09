@@ -26,6 +26,30 @@ while ($administrador = mysqli_fetch_array($query)) {
     $foto = $administrador["foto"];
 }
 
+$hsystem = selecionarHsystem($conexao, $id);
+$hotelId = $hsystem['hotelId'];
+$userNameHsystem = $hsystem['userName'];
+$password = $hsystem['password'];
+$reservasHsystem = capturarReservasHsystem($hotelId, $userNameHsystem, $password);
+$reservas = selecionarTodasReservas($conexao);
+foreach( $reservasHsystem['reservation'] as $res){
+    $i = 0;
+    foreach($reservas as $key){
+        if($key['id'] == $res['id']){
+            $i = 1;
+        }
+    }
+    if($i == 0){
+        $tipos = capturarTiposQuarto($hotelId, $userNameHsystem, $password);
+        foreach($tipos['roomRate'] as $quarto){
+             if($res['rooms']['room']['roomTypeId'] == $quarto['@attributes']['id']) {
+                 $tipoQuarto = utf8_encode($quarto['@attributes']['name']);
+             }
+        }
+        $quartoCadastrado = selecionarQuartoTipo($conexao, $tipoQuarto);
+        cadastrarReservaHSystem($conexao, $res['id'], $res['guest']['firstName'], $res['guest']['phone'], $res['guest']['email'], $res['paymentType'], $res['rooms']['room']['arrivalDate'], $res['rooms']['room']['departureDate'], $quartoCadastrado['id'], $res['locatorId'], $id, $res['status'], $res['rooms']['room']['adults'], $res['createDateTime']);
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">

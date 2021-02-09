@@ -1,6 +1,10 @@
 <?php include('header.php');
 
-$dados = selecionarTodosHospedes($conexao);
+$dados = selecionarTodasReservas($conexao);
+$contador = 0;
+foreach($dados as $key){
+    $contador = $contador + $key['hospedes'];
+}
 ?>
 
 <div class="page-body">
@@ -29,7 +33,7 @@ $dados = selecionarTodosHospedes($conexao);
 
                         <div class="row">
                             <div class="col">
-                                <h4>160 Reservas | 201 Hóspedes | 8 Grupos</h4>
+                                <h4><?php echo count($dados)." Reservas"; ?> | <?php echo count($contador)." Hospedes"; ?></h4>
                             </div>
                         </div>
 
@@ -115,14 +119,15 @@ $dados = selecionarTodosHospedes($conexao);
                                     <tbody>
                                         <?php if (!empty($dados)) {
                                             foreach ($dados as $key) {
+                                                $quarto = selecionarQuarto($conexao, $key['id_quarto']);
                                         ?>
                                                 <tr>
-                                                    <td><?php echo $key['id']; ?></td>
-                                                    <td><a href="single-hospede.php?id=<?php echo $key['nome']; ?>"><?php echo $key['nome']; ?></a></td>
-                                                    <td><?php echo $key['cpf']; ?></td>
-                                                    <td><?php echo $key['email']; ?></td>
-                                                    <td><?php echo $key['telefone']; ?></td>
-                                                    <td><a href="#"><i class="fas fa-id-card-alt"></i></a></td>
+                                                    <td><a href="single-reserva.php?id=<?php echo $key['id']; ?>"><?php echo $key['id']; ?></a></td>
+                                                    <td><a href="#"><?php echo $key['status']; ?></a></td>
+                                                    <td><a href="single-cliente.php?id=<?php echo $key['id_cliente']; ?>"><?php echo $key['nome']; ?></td>
+                                                    <td><?php echo $quarto['nome']; ?></td>
+                                                    <td><?php echo date('d/m/Y', strtotime($key['checkin'])); ?></td>
+                                                    <td><?php echo date('d/m/Y', strtotime($key['checkout'])); ?></td>
                                                 </tr>
                                             <?php }
                                         } else { ?>

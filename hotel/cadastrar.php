@@ -12,6 +12,15 @@ if ($op == 'adm') {
     cadastrarAdmin($conexao, $nome, $username, $senha, $email);
 }
 
+if($op == 'quarto') {
+    $nome = $_POST['nome'];
+    $tipo = $_POST['tipo'];
+    $capacidade = $_POST['capacidade'];
+    $obs = $_POST['obs'];
+    $id_hotel = $_POST['id'];
+    cadastrarQuarto($conexao, $nome, $tipo, $capacidade, $obs, $id_hotel);
+}
+
 if($op == 'hotel') {
     $nome_responsavel = $_POST['nome_responsavel'];
     $razao_social = $_POST['razao_social'];
@@ -45,5 +54,32 @@ if($op == 'hospede') {
     $sexo = $_POST['sexo'];
     $complemento = $_POST['complemento'];
     $cpf = $_POST['cpf'];
-    cadastrarHospede($conexao, $nome, $email, $telefone, $rua, $numero, $cep, $bairro, $estado, $cidade, $idade, $sexo, $complemento, $cpf);
+    $id_hotel = $_POST['id'];
+    cadastrarHospede($conexao, $nome, $email, $telefone, $rua, $numero, $cep, $bairro, $estado, $cidade, $idade, $sexo, $complemento, $cpf, $id_hotel);
+}
+
+if($op == 'reserva') {
+    $cpf_cnpj = $_POST['cpf_cnpj'];
+    $rg = $_POST['rg'];
+    $nome = $_POST['nome'];
+    $telefone = $_POST['telefone'];
+    $email = $_POST['email'];
+    $cpf_cnpj_empresa = $_POST['cpf_cnpj_empresa'];
+    $nome_empresa = $_POST['nome_empresa'];
+    $pagamento = $_POST['pagamento'];
+    $checkin = $_POST['checkin'];
+    $checkout = $_POST['checkout'];
+    $id_quarto = $_POST['quarto'];
+    $id_hotel = $_POST['id'];
+    $status = $_POST['status'];
+    $hospedes = $_POST['hospedes'];
+    $clientes = selecionarHospedeCPF($conexao, $cpf_cnpj);
+    if(empty($clientes)){
+        cadastrarHospedeReserva($conexao, $nome, $email, $telefone, $cpf_cnpj, $id_hotel);
+        $cliente = selecionarUltimoHospede($conexao);
+        $id_cliente = $cliente['id'];
+    } else {
+        $id_cliente = $clientes['id'];
+    }
+    cadastrarReserva($conexao, $cpf_cnpj, $rg, $nome, $telefone, $email, $cpf_cnpj_empresa, $nome_empresa, $pagamento, $checkin, $checkout, $data, $id_quarto, $id_cliente, $id_hotel, $status, $hospedes);
 }

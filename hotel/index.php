@@ -1,4 +1,8 @@
-<?php include('header.php') ?>
+<?php include('header.php');
+
+$dados = selecionarTodosQuartos($conexao);
+
+?>
 
 <div class="page-body">
   <div class="container-fluid">
@@ -20,229 +24,37 @@
   <!-- Container-fluid starts-->
   <div class="container-fluid">
     <div class="row">
-      <div class="col-md-2 col-6">
-        <a href="#">
-          <div class="card">
-            <div class="card-body apt">
-              <div class="row">
-                <div class="col">
-                  <h5>145</h5>
+      <?php foreach ($dados as $key) { ?>
+        <div class="col-md-2 col-6">
+          <a href="#">
+            <div class="card">
+              <div class="card-body apt">
+                <div class="row">
+                  <div class="col-8" style="padding-right: 0;">
+                    <h5><?php echo $key['nome']; ?></h5>
+                  </div>
+                  <div class="col" style="padding-left: 0;">
+                    <small><?php echo $key['capacidade']; ?> <i class="fas fa-user"></i></small>
+                  </div>
                 </div>
-                <div class="col">
-                  <small>2 <i class="fas fa-user"></i></small>
-                </div>
+
               </div>
-
+              <?php if ($key['status'] == "Disponivel") { ?>
+                <div class="card-footer disponivel"></div>
+              <?php } else if ($key['status'] == "Ocupado") { ?>
+                <div class="card-footer ocupado"></div>
+              <?php } else if ($key['status'] == "Limpeza") { ?>
+                <div class="card-footer limpeza"></div>
+              <?php } else if ($key['status'] == "Manutenção") { ?>
+                <div class="card-footer manutencao"></div>
+              <?php } ?>
             </div>
-            <div class="card-footer disponivel">
-            </div>
-          </div>
-        </a>
-      </div>
-
-      <div class="col-md-2 col-6">
-        <a href="#">
-          <div class="card">
-            <div class="card-body apt">
-              <div class="row">
-                <div class="col">
-                  <h5>145</h5>
-                </div>
-                <div class="col">
-                  <small>2 <i class="fas fa-user"></i></small>
-                </div>
-              </div>
-
-            </div>
-            <div class="card-footer disponivel">
-            </div>
-          </div>
-        </a>
-      </div>
-
-      <div class="col-md-2 col-6">
-        <a href="#">
-          <div class="card">
-            <div class="card-body apt">
-              <div class="row">
-                <div class="col">
-                  <h5>145</h5>
-                </div>
-                <div class="col">
-                  <small>2 <i class="fas fa-user"></i></small>
-                </div>
-              </div>
-
-            </div>
-            <div class="card-footer disponivel">
-            </div>
-          </div>
-        </a>
-      </div>
-
-      <div class="col-md-2 col-6">
-        <a href="#">
-          <div class="card">
-            <div class="card-body apt">
-              <div class="row">
-                <div class="col">
-                  <h5>145</h5>
-                </div>
-                <div class="col">
-                  <small>2 <i class="fas fa-user"></i></small>
-                </div>
-              </div>
-
-            </div>
-            <div class="card-footer disponivel">
-            </div>
-          </div>
-        </a>
-      </div>
-
-      <div class="col-md-2 col-6">
-        <a href="#">
-          <div class="card">
-            <div class="card-body apt">
-              <div class="row">
-                <div class="col">
-                  <h5>145</h5>
-                </div>
-                <div class="col">
-                  <small>2 <i class="fas fa-user"></i></small>
-                </div>
-              </div>
-
-            </div>
-            <div class="card-footer disponivel">
-            </div>
-          </div>
-        </a>
-      </div>
-
-      <div class="col-md-2 col-6">
-        <a href="#">
-          <div class="card">
-            <div class="card-body apt">
-              <div class="row">
-                <div class="col">
-                  <h5>145</h5>
-                </div>
-                <div class="col">
-                  <small>2 <i class="fas fa-user"></i></small>
-                </div>
-              </div>
-
-            </div>
-            <div class="card-footer ocupado">
-            </div>
-          </div>
-        </a>
-      </div>
-
-      <div class="col-md-2 col-6">
-        <a href="#">
-          <div class="card">
-            <div class="card-body apt">
-              <div class="row">
-                <div class="col">
-                  <h5>145</h5>
-                </div>
-                <div class="col">
-                  <small>2 <i class="fas fa-user"></i></small>
-                </div>
-              </div>
-
-            </div>
-            <div class="card-footer limpeza">
-            </div>
-          </div>
-        </a>
-      </div>
-
-      <div class="col-md-2 col-6">
-        <a href="#">
-          <div class="card">
-            <div class="card-body apt">
-              <div class="row">
-                <div class="col">
-                  <h5>145</h5>
-                </div>
-                <div class="col">
-                  <small>2 <i class="fas fa-user"></i></small>
-                </div>
-              </div>
-
-            </div>
-            <div class="card-footer disponivel">
-            </div>
-          </div>
-        </a>
-      </div>
-
-
-      <div class="col-md-2 col-6">
-        <a href="#">
-          <div class="card">
-            <div class="card-body apt">
-              <div class="row">
-                <div class="col">
-                  <h5>145</h5>
-                </div>
-                <div class="col">
-                  <small>2 <i class="fas fa-user"></i></small>
-                </div>
-              </div>
-
-            </div>
-            <div class="card-footer limpeza">
-            </div>
-          </div>
-        </a>
-      </div>
-
-      <div class="col-md-2 col-6">
-        <a href="#">
-          <div class="card">
-            <div class="card-body apt">
-              <div class="row">
-                <div class="col">
-                  <h5>145</h5>
-                </div>
-                <div class="col">
-                  <small>2 <i class="fas fa-user"></i></small>
-                </div>
-              </div>
-
-            </div>
-            <div class="card-footer manutencao">
-            </div>
-          </div>
-        </a>
-      </div>
-
-      <div class="col-md-2 col-6">
-        <a href="#">
-          <div class="card">
-            <div class="card-body apt">
-              <div class="row">
-                <div class="col">
-                  <h5>145</h5>
-                </div>
-                <div class="col">
-                  <small>2 <i class="fas fa-user"></i></small>
-                </div>
-              </div>
-
-            </div>
-            <div class="card-footer ocupado">
-            </div>
-          </div>
-        </a>
-      </div>
-
+          </a>
+        </div>
+      <?php } ?>
     </div>
   </div>
-  <!-- Container-fluid Ends-->
+</div>
+<!-- Container-fluid Ends-->
 </div>
 <?php include('footer.php'); ?>

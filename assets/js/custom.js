@@ -1,5 +1,5 @@
 function deletar(id, tabela) {
-    if (id == 1) {
+    if (id == 1 && tabela == 'admin') {
         alert("Este usuário é um desenvolvedor, não é possivel excluir um desenvolvedor!");
     } else {
         if (confirm("Tem certeza que deseja remover este registro? Esta ação não tem volta.")) {
@@ -15,22 +15,22 @@ $(document).ready(function () {
     $('[name=cep]').mask('00000-000');
     $('[name=whatsapp]').mask('(00) 0 0000-0000');
 
-    $('[name=cpf_cnpj]').keydown(function(){
+    $('[name=cpf_cnpj]').keydown(function () {
         try {
             $('[name=cpf_cnpj]').unmask();
         } catch (e) {}
-    
+
         var tamanho = $('[name=cpf_cnpj]').val().length;
-    
-        if(tamanho < 11){
+
+        if (tamanho < 11) {
             $('[name=cpf_cnpj]').mask("999.999.999-99");
         } else {
             $('[name=cpf_cnpj]').mask("99.999.999/9999-99");
         }
-    
+
         // ajustando foco
         var elem = this;
-        setTimeout(function(){
+        setTimeout(function () {
             // mudo a posição do seletor
             elem.selectionStart = elem.selectionEnd = 10000;
         }, 0);
@@ -40,22 +40,22 @@ $(document).ready(function () {
         $(this).val(currentValue);
     });
 
-    $('[name=cpf_cnpj_empresa]').keydown(function(){
+    $('[name=cpf_cnpj_empresa]').keydown(function () {
         try {
             $('[name=cpf_cnpj_empresa]').unmask();
         } catch (e) {}
-    
+
         var tamanho = $('[name=cpf_cnpj_empresa]').val().length;
-    
-        if(tamanho < 11){
+
+        if (tamanho < 11) {
             $('[name=cpf_cnpj_empresa]').mask("999.999.999-99");
         } else {
             $('[name=cpf_cnpj_empresa]').mask("99.999.999/9999-99");
         }
-    
+
         // ajustando foco
         var elem = this;
-        setTimeout(function(){
+        setTimeout(function () {
             // mudo a posição do seletor
             elem.selectionStart = elem.selectionEnd = 10000;
         }, 0);
@@ -100,3 +100,18 @@ $(document).ready(function () {
 
 });
 
+function attFiltro(sel, comando, pagina) {
+    if (pagina == 'quartos') {
+        if (comando == 'ordem') {
+            if (sel.value == 'recentes') {
+                window.location.href = "http://gtravel.com.br/hotel/quartos.php?ordem=recentes";
+            }
+            if (sel.value == 'normal') {
+                window.location.href = "http://gtravel.com.br/hotel/quartos.php?ordem=normal";
+            }
+            if (sel.value == 'alfabetica') {
+                window.location.href = "http://gtravel.com.br/hotel/quartos.php?ordem=alfabetica";
+            }
+        }
+    }
+}

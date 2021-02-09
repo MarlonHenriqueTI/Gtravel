@@ -1,6 +1,17 @@
 <?php include('header.php'); 
 
-$dados = selecionarTodosHospedes($conexao);
+$ordem = $_GET['ordem'];
+
+if($ordem == 'recentes'){
+    $dados = selecionarTodosQuartosFiltro($conexao, 10, 'recentes');
+} else if($ordem == 'alfabetica'){
+    $dados = selecionarTodosQuartosFiltro($conexao, 10, 'alfabetica');
+} else {
+    $dados = selecionarTodosQuartosFiltro($conexao, 10, 'normal');
+    
+}
+
+
 ?>
 
 <div class="page-body">
@@ -45,10 +56,11 @@ $dados = selecionarTodosHospedes($conexao);
                                     <div class="col-md-3">
                                         <div class="dataTables_length" id="basic-1_length">
                                             <label>
-                                                <select name="ordenar" aria-controls="basic-1" class="">
-                                                    <option value="10">Recentes</option>
-                                                    <option value="25">Do primeiro cadastrado ao último</option>
-                                                    <option value="50">ordem alfabetica</option>
+                                                <select name="ordenar" aria-controls="basic-1" class="" onchange="attFiltro(this, 'ordem', 'quartos')">
+                                                    <option value="">Ordenar por</option>
+                                                    <option value="recentes">Recentes</option>
+                                                    <option value="normal">Do primeiro cadastrado ao último</option>
+                                                    <option value="alfabetica">ordem alfabetica</option>
                                                 </select>
                                             </label>
                                         </div>
@@ -79,11 +91,11 @@ $dados = selecionarTodosHospedes($conexao);
                                         ?>
                                                 <tr>
                                                     <td><?php echo $key['id']; ?></td>
-                                                    <td><a href="single-hospede.php?id=<?php echo $key['nome']; ?>"><?php echo $key['nome']; ?></a></td>
-                                                    <td><?php echo $key['cpf']; ?></td>
-                                                    <td><?php echo $key['email']; ?></td>
-                                                    <td><?php echo $key['telefone']; ?></td>
-                                                    <td><a href="#"><i class="fas fa-id-card-alt"></i></a></td>
+                                                    <td><a href="#" data-toggle="modal" data-target="<?php echo '#ver'.$key['id']; ?>"><?php echo $key['nome']; ?></a></td>
+                                                    <td><?php echo $key['tipo']; ?></td>
+                                                    <td><?php echo $key['capacidade']." hospedes"; ?></td>
+                                                    <td><a href="#" data-toggle="modal" data-target="<?php echo '#obs'.$key['id']; ?>">Ver Observações</a></td>
+                                                    <td><a href="#" data-toggle="modal" data-target="<?php echo '#acoes'.$key['id']; ?>"><i class="fas fa-id-card-alt"></i></a></td>
                                                 </tr>
                                             <?php }
                                         } else { ?>
@@ -101,5 +113,69 @@ $dados = selecionarTodosHospedes($conexao);
     </div>
     <!-- Container-fluid Ends-->
 </div>
+
+<?php foreach($dados as $key) { ?>
+<!-- Modal -->
+<div class="modal fade" id="<?php echo 'obs'.$key['id'];?>" tabindex="-1" role="dialog" aria-labelledby="ModalObs" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Observações</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <?php echo $key['obs']; ?>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="<?php echo 'ver'.$key['id'];?>" tabindex="-1" role="dialog" aria-labelledby="ModalObs" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Informações sobre <?php echo $key['nome']; ?></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <?php echo $key['obs']; ?>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="<?php echo 'acoes'.$key['id'];?>" tabindex="-1" role="dialog" aria-labelledby="ModalObs" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Ações</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        O que você deseja?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Editar Quarto</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="deletar(<?php echo $key['id'];?>, 'apartamento')">Excluir Quarto</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<? } ?>
 
 <?php include('footer.php'); ?>

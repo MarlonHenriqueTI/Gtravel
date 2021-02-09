@@ -1,4 +1,7 @@
-<?php include('header.php'); ?>
+<?php include('header.php'); 
+
+$tipos = capturarTiposQuarto($hotelId, $userNameHsystem, $password);
+?>
 
 <div class="page-body">
     <div class="container-fluid">
@@ -39,7 +42,12 @@
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label>Tipo</label>
-                                            <input type="text" class="form-control" name="tipo" placeholder="Apartamento">
+                                            <select name="tipo" class="form-control">
+                                                <option value="" disabled>Selecione o tipo de quarto</option>
+                                                <?php foreach($tipos['roomRate'] as $quarto){?>
+                                                    <option value="<?php echo $quarto['@attributes']['name']; ?>"><?php echo $quarto['@attributes']['name']; ?></option>
+                                                <?php } ?>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="col-md-6">

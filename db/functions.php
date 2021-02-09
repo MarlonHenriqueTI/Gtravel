@@ -124,7 +124,7 @@ function cadastrarAdmin($conexao, $nome, $username, $senha, $email)
     }
 }
 
-function cadastrarHotel($conexao, $nome_responsavel, $cpf_cnpj, $razao_social, $rua, $numero, $bairro, $cidade, $estado, $pais, $cep, $complemento, $email, $senha, $username, $nome_hotel )
+function cadastrarHotel($conexao, $nome_responsavel, $cpf_cnpj, $razao_social, $rua, $numero, $bairro, $cidade, $estado, $pais, $cep, $complemento, $email, $senha, $username, $nome_hotel)
 {
     $senhacrip = md5($senha);
     $query = "INSERT INTO `hotel`(`nome_responsavel`, `cpf_cnpj`, `razao_social`, `rua`, `numero`, `bairro`, `cidade`, `estado`, `pais`, `cep`, `complemento`, `email`, `senha`, `username`, `nome_hotel`) VALUES ('$nome_responsavel', '$cpf_cnpj', '$razao_social', '$rua', '$numero', '$bairro', '$cidade', '$estado', '$pais', '$cep', '$complemento', '$email', '$senhacrip', '$username', '$nome_hotel')";
@@ -160,9 +160,9 @@ function cadastrarHotel($conexao, $nome_responsavel, $cpf_cnpj, $razao_social, $
     }
 }
 
-function cadastrarHospede($conexao, $nome, $email, $telefone, $rua, $numero, $cep, $bairro, $estado, $cidade, $idade, $sexo, $complemento, $cpf)
+function cadastrarHospede($conexao, $nome, $email, $telefone, $rua, $numero, $cep, $bairro, $estado, $cidade, $idade, $sexo, $complemento, $cpf, $id_hotel)
 {
-    $query = "INSERT INTO `hospede`(`nome`, `email`, `telefone`, `rua`, `numero`, `cep`, `bairro`, `estado`, `cidade`, `idade`, `sexo`, `complemento`, `cpf`) VALUES ('$nome', '$email', '$telefone', '$rua', '$numero', '$cep', '$bairro', '$estado', '$cidade', '$idade', '$sexo', '$complemento', '$cpf')";
+    $query = "INSERT INTO `hospede`(`nome`, `email`, `telefone`, `rua`, `numero`, `cep`, `bairro`, `estado`, `cidade`, `idade`, `sexo`, `complemento`, `cpf`, `id_hotel`) VALUES ('$nome', '$email', '$telefone', '$rua', '$numero', '$cep', '$bairro', '$estado', '$cidade', '$idade', '$sexo', '$complemento', '$cpf', '$id_hotel')";
     $resultado = mysqli_query($conexao, $query);
     if (!$resultado) {
         // monta o e-mail na variavel $body
@@ -182,6 +182,167 @@ function cadastrarHospede($conexao, $nome, $email, $telefone, $rua, $numero, $ce
     }
 }
 
+function cadastrarHospedeReserva($conexao, $nome, $email, $telefone, $cpf, $id_hotel)
+{
+    $query = "INSERT INTO `hospede`(`nome`, `email`, `telefone`, `cpf`, `id_hotel`) VALUES ('$nome', '$email', '$telefone', '$cpf', '$id_hotel')";
+    $resultado = mysqli_query($conexao, $query);
+    if (!$resultado) {
+        // monta o e-mail na variavel $body
+
+        $body = "===================================" . "\n";
+        $body = $body . "GTravel - Erro" . "\n";
+        $body = $body . "===================================" . "\n\n";
+        $body = $body . "Deu um erro para cadastrar um hospede no sistema, isso era o que estava na variavel resultado:\n";
+        $body = $body . var_dump($resultado) . "\n";
+        $body = $body . "===================================" . "\n";
+
+        // envia o email
+        mail('contato@marlonhenrique.com', 'GTravel - Erro ao cadastrar um hospede', $body, "From: GTravel!\r\n");
+        echo '<script>alert("Falha ao cadastrar hospede, nossa equipe ja recebeu essa falha por e-mail e estamos trabalhando para resolver, tente novamente mais tarde...");';
+    }
+}
+
+function cadastrarHospedeReservaHsystem($conexao, $nome, $email, $telefone, $cpf, $id_hotel, $id)
+{
+    $query = "INSERT INTO `hospede`(`nome`, `email`, `telefone`, `cpf`, `id_hotel`, `id`) VALUES ('$nome', '$email', '$telefone', '$cpf', '$id_hotel', '$id')";
+    $resultado = mysqli_query($conexao, $query);
+    if (!$resultado) {
+        // monta o e-mail na variavel $body
+
+        $body = "===================================" . "\n";
+        $body = $body . "GTravel - Erro" . "\n";
+        $body = $body . "===================================" . "\n\n";
+        $body = $body . "Deu um erro para cadastrar um hospede no sistema, isso era o que estava na variavel resultado:\n";
+        $body = $body . var_dump($resultado) . "\n";
+        $body = $body . "===================================" . "\n";
+
+        // envia o email
+        mail('contato@marlonhenrique.com', 'GTravel - Erro ao cadastrar um hospede', $body, "From: GTravel!\r\n");
+    }
+}
+
+function cadastrarQuarto($conexao, $nome, $tipo, $capacidade, $obs, $id_hotel)
+{
+    $query = "INSERT INTO `apartamento`(`nome`, `tipo`, `capacidade`, `obs`, `id_hotel`) VALUES ('$nome', '$tipo', '$capacidade', '$obs', '$id_hotel')";
+    $resultado = mysqli_query($conexao, $query);
+    if (!$resultado) {
+        // monta o e-mail na variavel $body
+
+        $body = "===================================" . "\n";
+        $body = $body . "GTravel - Erro" . "\n";
+        $body = $body . "===================================" . "\n\n";
+        $body = $body . "Deu um erro para cadastrar um apartamento no sistema, isso era o que estava na variavel resultado:\n";
+        $body = $body . var_dump($resultado) . "\n";
+        $body = $body . "===================================" . "\n";
+
+        // envia o email
+        mail('contato@marlonhenrique.com', 'GTravel - Erro ao cadastrar um apartamento', $body, "From: GTravel!\r\n");
+        echo '<script>alert("Falha ao cadastrar quarto, nossa equipe ja recebeu essa falha por e-mail e estamos trabalhando para resolver, tente novamente mais tarde...");window.location.href="cadastrar-quarto.php";</script>';
+    } else {
+        echo "<script>alert('Cadastrado com sucesso!');window.location.href='quartos.php';</script>";
+    }
+}
+
+function cadastrarHsystem($conexao, $id_hotel, $hotelId, $userName, $password)
+{
+    $query = "INSERT INTO `hsystem`(`id_hotel`, `hotelId`, `userName`, `password`) VALUES ('$id_hotel', '$hotelId', '$userName', '$password')";
+    $resultado = mysqli_query($conexao, $query);
+    if (!$resultado) {
+        // monta o e-mail na variavel $body
+
+        $body = "===================================" . "\n";
+        $body = $body . "GTravel - Erro" . "\n";
+        $body = $body . "===================================" . "\n\n";
+        $body = $body . "Deu um erro para cadastrar os dados da Hsystem no sistema, isso era o que estava na variavel resultado:\n";
+        $body = $body . var_dump($resultado) . "\n";
+        $body = $body . "===================================" . "\n";
+
+        // envia o email
+        mail('contato@marlonhenrique.com', 'GTravel - Erro ao cadastrar os dados da Hsystem', $body, "From: GTravel!\r\n");
+        echo '<script>alert("Falha ao cadastrar os dados da Hsystem, nossa equipe ja recebeu essa falha por e-mail e estamos trabalhando para resolver, tente novamente mais tarde...");window.location.href="perfil.php";</script>';
+    } else {
+        echo "<script>alert('Cadastrado com sucesso!');window.location.href='perfil.php';</script>";
+    }
+}
+
+function cadastrarReserva($conexao, $cpf_cnpj, $rg, $nome, $telefone, $email, $cpf_cnpj_empresa, $nome_empresa, $pagamento, $checkin, $checkout, $data, $id_quarto, $id_cliente, $id_hotel, $status, $hospedes)
+{
+    $query = "INSERT INTO `reserva`(`cpf_cnpj`, `rg`, `nome`, `telefone`, `email`, `cpf_cnpj_empresa`, `nome_empresa`, `pagamento`, `checkin`, `checkout`, `id_quarto`, `id_cliente`, `id_hotel`, `status`, `hospedes`) VALUES ('$cpf_cnpj', '$rg', '$nome', '$telefone', '$email', '$cpf_cnpj_empresa', '$nome_empresa', '$pagamento', '$checkin', '$checkout', '$id_quarto', '$id_cliente', '$id_hotel', '$status', $hospedes)";
+    $resultado = mysqli_query($conexao, $query);
+    if (!$resultado) {
+        // monta o e-mail na variavel $body
+
+        $body = "===================================" . "\n";
+        $body = $body . "GTravel - Erro" . "\n";
+        $body = $body . "===================================" . "\n\n";
+        $body = $body . "Deu um erro para cadastrar uma reserva no sistema, isso era o que estava na variavel resultado:\n";
+        $body = $body . var_dump($resultado) . "\n";
+        $body = $body . "===================================" . "\n";
+
+        // envia o email
+        mail('contato@marlonhenrique.com', 'GTravel - Erro ao cadastrar um reserva', $body, "From: GTravel!\r\n");
+        echo '<script>alert("Falha ao cadastrar reserva, nossa equipe ja recebeu essa falha por e-mail e estamos trabalhando para resolver, tente novamente mais tarde...");window.location.href="nova-reserva.php";</script>';
+    } else {
+        echo "<script>alert('Cadastrado com sucesso!');window.location.href='reservas.php';</script>";
+    }
+}
+
+function dateEmMysql($dateSql){
+    $ano= substr($dateSql, 6);
+    $mes= substr($dateSql, 3,-5);
+    $dia= substr($dateSql, 0,-8);
+    return $ano."-".$mes."-".$dia;
+}
+
+function cadastrarReservaHSystem($conexao, $id, $nome, $telefone, $email, $pagamento, $checkin, $checkout, $id_quarto, $id_cliente, $id_hotel, $status, $hospedes, $data)
+{
+    $id = intval($id);
+    if ($pagamento == 1) {
+        $pagamento = "Cartão de crédito";
+    } else if ($pagamento == 2) {
+        $pagamento = "Deposito";
+    } else if ($pagamento == 3) {
+        $pagamento = "Pagamento direto no hotel";
+    } else if ($pagamento == 4) {
+        $pagamento = "Faturado";
+    } else if ($pagamento == 5) {
+        $pagamento = "Debito";
+    } else if ($pagamento == 6) {
+        $pagamento = "Transferência bancária";
+    } else if ($pagamento == 7) {
+        $pagamento = " pré-pagamento (operadora pagará antecipado ao hotel)";
+    } else {
+        $pagamento = "Não informado";
+    }
+    $clientes = selecionarTodosHospedes($conexao);
+    $cad = 0;
+    foreach ($clientes as $dad) {
+        if ($dad['id'] == $id_cliente) {
+            $cad = 1;
+        }
+    }
+    if ($cad == 0) {
+        cadastrarHospedeReservaHsystem($conexao, $nome, $email, $telefone, 'Não informado', $id_hotel, $id_cliente);
+    }
+    $data = date('Y-m-d H:i:s', strtotime($data));
+    $checkin = date('Y-m-d', strtotime(dateEmMysql($checkin)));
+    $checkout = date('Y-m-d', strtotime(dateEmMysql($checkout)));
+    $query = "INSERT INTO `reserva`(`id`, `nome`, `telefone`, `email`, `pagamento`,`checkin`,`checkout`, `id_quarto`, `id_cliente`, `id_hotel`, `status`, `hospedes`) VALUES ('$id', '$nome', '$telefone', '$email', '$pagamento','$checkin','$checkout', '$id_quarto', '$id_cliente', '$id_hotel', '$status', $hospedes)";
+    $resultado = mysqli_query($conexao, $query);
+    if (!$resultado) {
+        // monta o e-mail na variavel $body
+
+        $body = "===================================" . "\n";
+        $body = $body . "GTravel - Erro" . "\n";
+        $body = $body . "===================================" . "\n\n";
+        $body = $body . "Deu um erro para cadastrar uma reserva no sistema, isso era o que estava na variavel resultado:\n";
+        $body = $body . var_dump($resultado) . "\n";
+        $body = $body . "===================================" . "\n";
+
+        // envia o email
+        mail('contato@marlonhenrique.com', 'GTravel - Erro ao cadastrar um reserva', $body, "From: GTravel!\r\n");
+    }
+}
 
 /*funções de seleção*/
 function selecionarAdmin($conexao, $id)
@@ -190,6 +351,20 @@ function selecionarAdmin($conexao, $id)
     $resultado = mysqli_query($conexao, $query);
     if (!$resultado) {
         echo '<script>alert("Administrador não encontrado");</script>';
+    } else {
+        foreach ($resultado as $key) {
+            $res[] = $key;
+        }
+        return $res[0];
+    }
+}
+
+function selecionarHospedeCPF($conexao, $cpf)
+{
+    $query = "SELECT * FROM `hospede` WHERE `cpf` = '$cpf'";
+    $resultado = mysqli_query($conexao, $query);
+    if (!$resultado) {
+        echo '<script>alert("Hospede não encontrado");</script>';
     } else {
         foreach ($resultado as $key) {
             $res[] = $key;
@@ -238,4 +413,177 @@ function selecionarTodosHospedes($conexao)
         }
         return $res;
     }
+}
+
+function selecionarTodasReservas($conexao)
+{
+    $query = "SELECT * FROM `reserva`";
+    $resultado = mysqli_query($conexao, $query);
+    if (!$resultado) {
+        echo '<script>alert("Reserva não encontrado");</script>';
+    } else {
+        foreach ($resultado as $key) {
+            $res[] = $key;
+        }
+        return $res;
+    }
+}
+
+
+function selecionarTodosQuartos($conexao)
+{
+    $query = "SELECT * FROM `apartamento`";
+    $resultado = mysqli_query($conexao, $query);
+    if (!$resultado) {
+        echo '<script>alert("Quarto não encontrado");</script>';
+    } else {
+        foreach ($resultado as $key) {
+            $res[] = $key;
+        }
+        return $res;
+    }
+}
+
+function selecionarTodosQuartosFiltro($conexao, $numero, $ordem)
+{
+    if ($ordem == 'recentes') {
+        $query = "SELECT * FROM `apartamento` ORDER BY `id` DESC LIMIT $numero";
+    } else if ($ordem == 'normal') {
+        $query = "SELECT * FROM `apartamento` ORDER BY `id` LIMIT $numero";
+    } else {
+        $query = "SELECT * FROM `apartamento` ORDER BY `nome` ASC LIMIT $numero";
+    }
+
+    $resultado = mysqli_query($conexao, $query);
+    if (!$resultado) {
+        echo '<script>alert("Quarto não encontrado");</script>';
+    } else {
+        foreach ($resultado as $key) {
+            $res[] = $key;
+        }
+        return $res;
+    }
+}
+
+function selecionarQuarto($conexao, $id)
+{
+    $query = "SELECT * FROM `apartamento` WHERE `id` = $id";
+    $resultado = mysqli_query($conexao, $query);
+    if (!$resultado) {
+        echo '<script>alert("Quarto não encontrado");</script>';
+    } else {
+        foreach ($resultado as $key) {
+            $res[] = $key;
+        }
+        return $res[0];
+    }
+}
+
+function selecionarQuartoTipo($conexao, $tipo)
+{
+    $query = "SELECT * FROM `apartamento` WHERE `tipo` = '$tipo'";
+    $resultado = mysqli_query($conexao, $query);
+    if (!$resultado) {
+        echo '<script>alert("Quarto não encontrado");</script>';
+    } else {
+        foreach ($resultado as $key) {
+            $res[] = $key;
+        }
+        return $res[0];
+    }
+}
+
+function selecionarHsystem($conexao, $id)
+{
+    $query = "SELECT * FROM `hsystem` WHERE `id_hotel` = $id";
+    $resultado = mysqli_query($conexao, $query);
+    if (!$resultado) {
+        echo '<script>alert("Hsystem não encontrado");</script>';
+    } else {
+        foreach ($resultado as $key) {
+            $res[] = $key;
+        }
+        return $res[0];
+    }
+}
+
+function selecionarUltimoHospede($conexao)
+{
+    $query = "SELECT * FROM `hospede` ORDER BY `id` desc limit 1";
+    $resultado = mysqli_query($conexao, $query);
+    if (!$resultado) {
+        echo '<script>alert("Hospede não encontrado");</script>';
+    } else {
+        foreach ($resultado as $key) {
+            $res[] = $key;
+        }
+        return $res[0];
+    }
+}
+
+
+function capturarReservasHsystem($hotelId, $userName, $password)
+{
+    $curl = curl_init();
+
+    curl_setopt_array($curl, array(
+        CURLOPT_URL => 'https://services.hunit.com.br/api/booking/read',
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => 'utf-8',
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 0,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => 'POST',
+        CURLOPT_POSTFIELDS => '
+    <reservationRQ>
+        <hotelId>' . $hotelId . '</hotelId>
+        <userName>' . $userName . '</userName>
+        <password>' . $password . '</password>
+    </reservationRQ>',
+        CURLOPT_HTTPHEADER => array(
+            'Content-Type: application/xml'
+        ),
+    ));
+
+    $response = curl_exec($curl);
+
+    curl_close($curl);
+    $strxml = mb_convert_encoding($response, 'UTF-16', 'UTF-8');
+    $json = json_encode(simplexml_load_string($strxml));
+    $resultado = json_decode($json, true);
+    return $resultado;
+}
+
+function capturarTiposQuarto($hotelId, $userName, $password)
+{
+    $curl = curl_init();
+
+    curl_setopt_array($curl, array(
+        CURLOPT_URL => 'http://services.hunit.com.br/api/roomrate/read',
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => 'utf-8',
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 0,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => 'POST',
+        CURLOPT_POSTFIELDS => '
+    <roomRateRQ>
+        <hotelId>' . $hotelId . '</hotelId>
+        <userName>' . $userName . '</userName>
+        <password>' . $password . '</password>
+    </roomRateRQ>',
+        CURLOPT_HTTPHEADER => array(
+            'Content-Type: application/xml'
+        ),
+    ));
+
+    $response = curl_exec($curl);
+
+    curl_close($curl);
+    $strxml = mb_convert_encoding($response, 'UTF-16', 'UTF-8');
+    $json = json_encode(simplexml_load_string($strxml));
+    $resultado = json_decode($json, true);
+    return $resultado;
 }

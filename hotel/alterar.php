@@ -34,5 +34,37 @@ if ($op == 'adm-edt') {
         alterar($id_user, 'admin', 'email', $email, $conexao);
     }
 
-    echo '<script>alert("'.$_POST['nome'].' alterado com sucesso...");window.history.back();</script>';
+    echo '<script>alert("' . $_POST['nome'] . ' alterado com sucesso...");window.history.back();</script>';
+}
+
+if ($op = 'hsystem') {
+    $id_hotel = $_POST['id'];
+    $hotelId = $_POST['hotelId'];
+    $userName = $_POST['userName'];
+    $password = $_POST['password'];
+    $query = "SELECT * FROM `hsystem` WHERE `id_hotel` = '$id_hotel'";
+    $resultado = mysqli_query($conexao, $query);
+    foreach ($resultado as $key) {
+        $res[] = $key;
+    }
+    if (count($res == 0)) {
+        cadastrarHsystem($conexao, $id_hotel, $hotelId, $userName, $password);
+    } else {
+        if (isset($_POST['hotelId'])) {
+            $hotelId = $_POST['hotelId'];
+            alterar($id_hotel, 'hsystem', 'hotelId', $hotelId, $conexao);
+        }
+
+        if (isset($_POST['userName'])) {
+            $userName = $_POST['userName'];
+            alterar($id_hotel, 'hsystem', 'userName', $userName, $conexao);
+        }
+
+        if (isset($_POST['password'])) {
+            $password = $_POST['password'];
+            alterar($id_hotel, 'hsystem', 'password', $password, $conexao);
+        }
+
+        echo '<script>alert("Alterado com sucesso...");window.history.back();</script>';
+    }
 }
