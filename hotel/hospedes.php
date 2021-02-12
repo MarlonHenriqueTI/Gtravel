@@ -1,6 +1,6 @@
 <?php include('header.php'); 
 
-$dados = selecionarTodosHospedes($conexao);
+$dados = selecionarTodosHospedes($conexao, $id);
 ?>
 
 <div class="page-body">
@@ -79,11 +79,11 @@ $dados = selecionarTodosHospedes($conexao);
                                         ?>
                                                 <tr>
                                                     <td><?php echo $key['id']; ?></td>
-                                                    <td><a href="single-hospede.php?id=<?php echo $key['nome']; ?>"><?php echo $key['nome']; ?></a></td>
+                                                    <td><a href="#"  data-toggle="modal" data-target="<?php echo '#ver'.$key['id']; ?>"><?php echo $key['nome']; ?></a></td>
                                                     <td><?php echo $key['cpf']; ?></td>
                                                     <td><?php echo $key['email']; ?></td>
                                                     <td><?php echo $key['telefone']; ?></td>
-                                                    <td><a href="#"><i class="fas fa-id-card-alt"></i></a></td>
+                                                    <td><a href="#" data-toggle="modal" data-target="<?php echo '#acoes'.$key['id']; ?>"><i class="fas fa-id-card-alt"></i></a></td>
                                                 </tr>
                                             <?php }
                                         } else { ?>
@@ -101,5 +101,105 @@ $dados = selecionarTodosHospedes($conexao);
     </div>
     <!-- Container-fluid Ends-->
 </div>
+
+<?php foreach($dados as $key) { ?>
+<!-- Modal -->
+<div class="modal fade" id="<?php echo 'ver'.$key['id'];?>" tabindex="-1" role="dialog" aria-labelledby="ModalObs" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Informações sobre <?php echo $key['nome']; ?></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <div class="row">
+            <div class="col-12">
+                <h5>ID: <span><?php echo $key['id']; ?></span></h5>
+            </div>
+            <div class="col-12">
+                <h5>Nome: <span><?php echo $key['nome']; ?></span></h5>
+            </div>
+            <div class="col-12">
+                <h5>CPF: <span><?php echo $key['cpf']; ?></span></h5>
+            </div>
+            <div class="col-12">
+                <h5>E-mail: <span><?php echo $key['email']; ?></span></h5>
+            </div>
+            <div class="col-12">
+                <h5>Telefone: <span><?php echo $key['telefone']; ?></span></h5>
+            </div>
+            <div class="col-12">
+                <h5>Rua: <span><?php echo $key['rua']; ?></span></h5>
+            </div>
+            <div class="col-12">
+                <h5>Numero: <span><?php echo $key['numero']; ?></span></h5>
+            </div>
+            <div class="col-12">
+                <h5>Complemento: <span><?php echo $key['complemento']; ?></span></h5>
+            </div>
+            <div class="col-12">
+                <h5>CEP: <span><?php echo $key['cep']; ?></span></h5>
+            </div>
+            <div class="col-12">
+                <h5>Bairro: <span><?php echo $key['bairro']; ?></span></h5>
+            </div>
+            <div class="col-12">
+                <h5>Cidade: <span><?php echo $key['cidade']; ?></span></h5>
+            </div>
+            <div class="col-12">
+                <h5>UF: <span><?php echo $key['estado']; ?></span></h5>
+            </div>
+            <div class="col-12">
+            <?php // separando yyyy, mm, ddd
+                list($ano, $mes, $dia) = explode('-', $key['idade']);
+
+                // data atual
+                $hoje = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
+                // Descobre a unix timestamp da data de nascimento do fulano
+                $nascimento = mktime( 0, 0, 0, $mes, $dia, $ano);
+
+                // cálculo
+                $idade = floor((((($hoje - $nascimento) / 60) / 60) / 24) / 365.25);
+                ?>
+                <h5>Idade: <span><?php if(empty($key['idade'])){ echo '0'; } else { echo $idade; } ?></span></h5>
+            </div>
+            <div class="col-6">
+                <h5>Sexo: <span><?php echo $key['sexo']; ?></span></h5>
+            </div>
+
+      </div>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="<?php echo 'acoes'.$key['id'];?>" tabindex="-1" role="dialog" aria-labelledby="ModalObs" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Ações</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        O que você deseja?
+      </div>
+      <div class="modal-footer">
+        <a href="editar-hospede.php?id=<?php echo $key['id'];?>" class="btn btn-primary">Editar Cliente</a>
+        <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="deletar(<?php echo $key['id'];?>, 'hospede')">Excluir Cliente</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<? } ?>
 
 <?php include('footer.php'); ?>

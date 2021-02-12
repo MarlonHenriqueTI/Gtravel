@@ -1,6 +1,6 @@
 <?php include('header.php');
 
-$dados = selecionarTodosQuartos($conexao);
+$dados = selecionarTodosQuartos($conexao, $id);
 
 ?>
 

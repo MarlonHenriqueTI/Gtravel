@@ -1,6 +1,6 @@
 <?php include('header.php');
 
-$dados = selecionarTodosHospedes($conexao);
+$dados = selecionarTodosHospedes($conexao, $id);
 ?>
 
 <div class="page-body">

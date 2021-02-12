@@ -31,7 +31,7 @@ $hotelId = $hsystem['hotelId'];
 $userNameHsystem = $hsystem['userName'];
 $password = $hsystem['password'];
 $reservasHsystem = capturarReservasHsystem($hotelId, $userNameHsystem, $password);
-$reservas = selecionarTodasReservas($conexao);
+$reservas = selecionarTodasReservas($conexao, $id);
 foreach( $reservasHsystem['reservation'] as $res){
     $i = 0;
     foreach($reservas as $key){
@@ -46,8 +46,19 @@ foreach( $reservasHsystem['reservation'] as $res){
                  $tipoQuarto = utf8_encode($quarto['@attributes']['name']);
              }
         }
-        $quartoCadastrado = selecionarQuartoTipo($conexao, $tipoQuarto);
-        cadastrarReservaHSystem($conexao, $res['id'], $res['guest']['firstName'], $res['guest']['phone'], $res['guest']['email'], $res['paymentType'], $res['rooms']['room']['arrivalDate'], $res['rooms']['room']['departureDate'], $quartoCadastrado['id'], $res['locatorId'], $id, $res['status'], $res['rooms']['room']['adults'], $res['createDateTime']);
+        $quartoCadastrado = selecionarQuartoTipo($conexao, $tipoQuarto, $res['rooms']['room']['adults']);
+        if(empty($res['payment']['prePaymentValue'])){
+            $pre = '0';
+        } else {
+            $pre = $res['payment']['prePaymentValue'];
+        }
+
+        if(empty($res['rooms']['room']['addons']['addon']['totalValue'])){
+            $addon = 0;
+        } else {
+            $addon = $res['rooms']['room']['addons']['addon']['totalValue'];
+        }
+        cadastrarReservaHSystem($conexao, $res['id'], $res['guest']['firstName'], $res['guest']['phone'], $res['guest']['email'], $res['paymentType'], $res['rooms']['room']['arrivalDate'], $res['rooms']['room']['departureDate'], $quartoCadastrado['id'], $res['locatorId'], $id, $res['status'], $res['rooms']['room']['adults'], $res['createDateTime'],floatval($res['totalValue']), $addon, $pre);
     }
 }
 ?>
@@ -92,6 +103,7 @@ foreach( $reservasHsystem['reservation'] as $res){
     <link rel="stylesheet" type="text/css" href="../assets/css/responsive.css">
     
     <link rel="stylesheet" type="text/css" href="../assets/css/estilo.css">
+    
 </head>
 
 <body>

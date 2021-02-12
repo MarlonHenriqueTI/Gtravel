@@ -28,8 +28,7 @@
 <script src="../assets/js/chat-menu.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js" integrity="sha512-pHVGpX7F/27yZ0ISY+VVjyULApbDlD0/X0rgGbTqCE7WFW5MezNTWG/dnhtbBuICzsd0WQPgpE4REBLv+UqChw==" crossorigin="anonymous"></script>
 <!-- Plugins JS Ends-->
-<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.5.1/main.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.5.1/locales-all.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@fullcalendar/resource-timeline@5.5.0/main.global.min.js"></script>
 <script src="../assets/js/calendario.js"></script>
 <!-- Theme js-->
 <script src="../assets/js/script.js"></script>

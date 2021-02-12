@@ -3,11 +3,11 @@
 $ordem = $_GET['ordem'];
 
 if($ordem == 'recentes'){
-    $dados = selecionarTodosQuartosFiltro($conexao, 10, 'recentes');
+    $dados = selecionarTodosQuartosFiltro($conexao, 10, 'recentes', $id);
 } else if($ordem == 'alfabetica'){
-    $dados = selecionarTodosQuartosFiltro($conexao, 10, 'alfabetica');
+    $dados = selecionarTodosQuartosFiltro($conexao, 10, 'alfabetica', $id);
 } else {
-    $dados = selecionarTodosQuartosFiltro($conexao, 10, 'normal');
+    $dados = selecionarTodosQuartosFiltro($conexao, 10, 'normal', $id);
     
 }
 
@@ -146,7 +146,26 @@ if($ordem == 'recentes'){
         </button>
       </div>
       <div class="modal-body">
-        <?php echo $key['obs']; ?>
+      <div class="row">
+            <div class="col-12">
+                <h5>ID: <span><?php echo $key['id']; ?></span></h5>
+            </div>
+            <div class="col-12">
+                <h5>Status: <span><?php echo $key['status']; ?></span></h5>
+            </div>
+            <div class="col-12">
+                <h5>Nome/Numero: <span><?php echo $key['nome']; ?></span></h5>
+            </div>
+            <div class="col-12">
+                <h5>Tipo: <span><?php echo $key['tipo']; ?></span></h5>
+            </div>
+            <div class="col-12">
+                <h5>Capacidade: <span><?php echo $key['capacidade'].' Hospedes'; ?></span></h5>
+            </div>
+            <div class="col-12">
+                <h5>Referencia na HSystem: <span><?php echo $key['id_tipo']; ?></span></h5>
+            </div>
+      </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
@@ -169,7 +188,7 @@ if($ordem == 'recentes'){
         O que você deseja?
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal">Editar Quarto</button>
+        <a href="editar-quarto.php?id=<?php echo $key['id'];?>" class="btn btn-primary">Editar Quarto</a>
         <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="deletar(<?php echo $key['id'];?>, 'apartamento')">Excluir Quarto</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
       </div>

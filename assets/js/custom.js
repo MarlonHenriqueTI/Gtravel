@@ -14,6 +14,15 @@ $(document).ready(function () {
     $('[name=cpf]').mask('000.000.000-00');
     $('[name=cep]').mask('00000-000');
     $('[name=whatsapp]').mask('(00) 0 0000-0000');
+    $('[name=pre_pagamento]').mask("#.00", {reverse: true});
+    $('[name=nao_reembolsavel]').mask("#.00", {reverse: true});
+    $('[name=valor_cobrado]').mask("#.00", {reverse: true});
+    $('[name=valor_diarias]').mask("#.00", {reverse: true});
+    $('[name=valor_extras]').mask("#.00", {reverse: true});
+    $('[name=valor_taxas]').mask("#.00", {reverse: true});
+    $('[name=valor_descontos]').mask("#.00", {reverse: true});
+    $('[name=valor_total]').mask("#.00", {reverse: true});
+
 
     $('[name=cpf_cnpj]').keydown(function () {
         try {
