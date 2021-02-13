@@ -1,7 +1,13 @@
 <?php include('header.php');
 
 $dados = selecionarTodosQuartos($conexao, $id);
-
+$hoje = date('Y-m-d');
+$reservas = selecionarTodasReservas($conexao, $id);
+foreach($reservas as $key){
+  if((strtotime($hoje) >= strtotime($key['checkin'])) && (strtotime($hoje) <= strtotime($key['checkout']))){
+    setDisponibilidade($key['id_quarto'], $conexao, 'Ocupado');
+  }
+}
 ?>
 
 <div class="page-body">
@@ -24,7 +30,9 @@ $dados = selecionarTodosQuartos($conexao, $id);
   <!-- Container-fluid starts-->
   <div class="container-fluid">
     <div class="row">
-      <?php foreach ($dados as $key) { ?>
+      <?php foreach ($dados as $key) { 
+        
+        ?>
         <div class="col-md-2 col-6">
           <a href="#">
             <div class="card">

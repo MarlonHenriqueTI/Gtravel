@@ -30,6 +30,16 @@ function alterar($id, $tabela, $campo, $valor, $conexao)
     }
 }
 
+function setDisponibilidade($id, $conexao, $disponibilidade)
+{
+    $query = "UPDATE `apartamento` SET `status` = '$disponibilidade' WHERE `id` = $id";
+    $resultado = mysqli_query($conexao, $query);
+    if (!$resultado) {
+        echo "<script>alert('Erro ao alterar...');</script>";
+        die();
+    }
+}
+
 
 if (isset($_GET["id"]) && isset($_GET["tabela"]) && isset($_GET["alterar"]) && isset($_GET["campo"]) && isset($_GET["valor"])) {
     alterar($_GET["id"], $_GET["tabela"], $_GET["campo"], $_GET["valor"], $conexao);
@@ -450,6 +460,19 @@ function selecionarTodasReservas($conexao, $id)
     }
 }
 
+function selecionarTodasReservasQuarto($conexao, $id)
+{
+    $query = "SELECT * FROM `reserva` where `id_quarto` = '$id' ";
+    $resultado = mysqli_query($conexao, $query);
+    if (!$resultado) {
+        echo '<script>alert("Reserva não encontrado");</script>';
+    } else {
+        foreach ($resultado as $key) {
+            $res[] = $key;
+        }
+        return $res;
+    }
+}
 
 function selecionarTodosQuartos($conexao, $id)
 {
@@ -513,6 +536,8 @@ function selecionarReserva($conexao, $id)
         return $res[0];
     }
 }
+
+
 
 function selecionarQuartoTipo($conexao, $tipo, $capacidade)
 {   

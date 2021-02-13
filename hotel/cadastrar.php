@@ -135,5 +135,14 @@ if($op == 'reserva') {
         $valor_total = 0.00;
     }
 
-    cadastrarReserva($conexao, $cpf_cnpj, $rg, $nome, $telefone, $email, $cpf_cnpj_empresa, $nome_empresa, $pagamento, $checkin, $checkout, $id_quarto, $id_cliente, $id_hotel, $status, $hospedes, $pre_pagamento, $nao_reembolsavel, $valor_cobrado, $valor_diarias, $valor_extras, $valor_taxas, $valor_descontos, $valor_total);
+    $reservas = selecionarTodasReservasQuarto($conexao, $id_quarto);
+    foreach($reservas as $key){
+        if(($checkin >= $key['checkin']) && ($checkin <= $key['checkout'])){
+            echo '<script>alert("Este quarto não esta disponivel para esta data!");window.history.back();</script>';
+        } else if(($chekout >= $key['checkin']) && ($checkout <= $key['checkout'])){
+            echo '<script>alert("Este quarto não esta disponivel para esta data!");window.history.back();</script>';
+        } else {
+            cadastrarReserva($conexao, $cpf_cnpj, $rg, $nome, $telefone, $email, $cpf_cnpj_empresa, $nome_empresa, $pagamento, $checkin, $checkout, $id_quarto, $id_cliente, $id_hotel, $status, $hospedes, $pre_pagamento, $nao_reembolsavel, $valor_cobrado, $valor_diarias, $valor_extras, $valor_taxas, $valor_descontos, $valor_total);
+        }
+    }
 }

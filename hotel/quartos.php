@@ -81,6 +81,7 @@ if($ordem == 'recentes'){
                                             <th>Nome</th>
                                             <th>Tipo</th>
                                             <th>Capacidade</th>
+                                            <th>Status</th>
                                             <th>Observações</th>
                                             <th>Ações</th>
                                         </tr>
@@ -94,6 +95,7 @@ if($ordem == 'recentes'){
                                                     <td><a href="#" data-toggle="modal" data-target="<?php echo '#ver'.$key['id']; ?>"><?php echo $key['nome']; ?></a></td>
                                                     <td><?php echo $key['tipo']; ?></td>
                                                     <td><?php echo $key['capacidade']." hospedes"; ?></td>
+                                                    <td><a href="#" data-toggle="modal" data-target="<?php echo '#status'.$key['id']; ?>"><?php echo $key['status']; ?></a></td>
                                                     <td><a href="#" data-toggle="modal" data-target="<?php echo '#obs'.$key['id']; ?>">Ver Observações</a></td>
                                                     <td><a href="#" data-toggle="modal" data-target="<?php echo '#acoes'.$key['id']; ?>"><i class="fas fa-id-card-alt"></i></a></td>
                                                 </tr>
@@ -195,6 +197,40 @@ if($ordem == 'recentes'){
     </div>
   </div>
 </div>
-<? } ?>
 
-<?php include('footer.php'); ?>
+
+<!-- Modal -->
+<div class="modal fade" id="<?php echo 'status'.$key['id'];?>" tabindex="-1" role="dialog" aria-labelledby="ModalObs" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Defina um novo status para o quarto <?php echo $key['nome']; ?></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="alterar.php" method="POST">
+      <div class="modal-body">
+        <div class="form-group">
+            <label>Selecione um status</label>
+            <select name="status" class="form-control">
+                <option value="Disponivel">Disponivel</option>
+                <option value="Ocupado">Ocupado</option>
+                <option value="Limpeza">Limpeza</option>
+                <option value="Manutenção">Manutenção</option>
+            </select>
+        </div>     
+        <input type="hidden" name="id" value="<?php echo $key['id'];?>"> 
+        <input type="hidden" name="op" value="disponibilidade"> 
+
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Alterar Status</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<?php } include('footer.php'); ?>

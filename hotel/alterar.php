@@ -277,3 +277,12 @@ if($op == 'hospede') {
     }
     echo '<script>alert("Hospede atualizado com sucesso!");window.history.back();</script>';
 }
+
+if($op == 'disponibilidade'){
+    $id_quarto = $_POST['id'];
+    if (isset($_POST['status'])) {
+        $status = $_POST['status'];
+        alterar($id_quarto, 'apartamento', 'status', $status, $conexao);
+    }
+    echo '<script>alert("Quarto definido como '.$_POST['status'].'");window.history.back();</script>';
+}
