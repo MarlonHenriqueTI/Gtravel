@@ -22,6 +22,7 @@ $(document).ready(function () {
     $('[name=valor_taxas]').mask("#.00", {reverse: true});
     $('[name=valor_descontos]').mask("#.00", {reverse: true});
     $('[name=valor_total]').mask("#.00", {reverse: true});
+    $('[name=valor]').mask("#.00", {reverse: true});
 
 
     $('[name=cpf_cnpj]').keydown(function () {

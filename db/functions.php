@@ -278,6 +278,52 @@ function cadastrarHsystem($conexao, $id_hotel, $hotelId, $userName, $password)
     }
 }
 
+function cadastrarTaxa($conexao, $id_hotel, $nome, $valor, $descricao)
+{
+    $query = "INSERT INTO `taxa`(`id_hotel`, `nome`, `valor`, `descricao`) VALUES ('$id_hotel', '$nome', '$valor', '$descricao')";
+    $resultado = mysqli_query($conexao, $query);
+    if (!$resultado) {
+        printf("Errormessage: %s\n", mysqli_error($conexao));
+        // monta o e-mail na variavel $body
+
+        $body = "===================================" . "\n";
+        $body = $body . "GTravel - Erro" . "\n";
+        $body = $body . "===================================" . "\n\n";
+        $body = $body . "Deu um erro para cadastrar uma taxa no sistema, isso era o que estava na variavel resultado:\n";
+        $body = $body . mysqli_error($conexao) . "\n";
+        $body = $body . "===================================" . "\n";
+
+        // envia o email
+        mail('contato@marlonhenrique.com', 'GTravel - Erro ao cadastrar uma taxa', $body, "From: GTravel!\r\n");
+        echo '<script>alert("Falha ao cadastrar taxa, nossa equipe ja recebeu essa falha por e-mail e estamos trabalhando para resolver, tente novamente mais tarde... Descrição do erro:'.mysqli_error($conexao).'");window.history.back();</script>';
+    } else {
+        echo "<script>alert('Cadastrado com sucesso!');window.history.back();</script>";
+    }
+}
+
+function cadastrarTipoQuarto($conexao, $id_hotel, $nome, $descricao)
+{
+    $query = "INSERT INTO `tipo_quarto`(`id_hotel`, `nome`, `descricao`) VALUES ('$id_hotel', '$nome', '$descricao')";
+    $resultado = mysqli_query($conexao, $query);
+    if (!$resultado) {
+        printf("Errormessage: %s\n", mysqli_error($conexao));
+        // monta o e-mail na variavel $body
+
+        $body = "===================================" . "\n";
+        $body = $body . "GTravel - Erro" . "\n";
+        $body = $body . "===================================" . "\n\n";
+        $body = $body . "Deu um erro para cadastrar um tipo de quarto no sistema, isso era o que estava na variavel resultado:\n";
+        $body = $body . mysqli_error($conexao) . "\n";
+        $body = $body . "===================================" . "\n";
+
+        // envia o email
+        mail('contato@marlonhenrique.com', 'GTravel - Erro ao cadastrar um tipo de quarto', $body, "From: GTravel!\r\n");
+        echo '<script>alert("Falha ao cadastrar tipo de quarto, nossa equipe ja recebeu essa falha por e-mail e estamos trabalhando para resolver, tente novamente mais tarde... Descrição do erro:'.mysqli_error($conexao).'");window.history.back();</script>';
+    } else {
+        echo "<script>alert('Cadastrado com sucesso!');window.history.back();</script>";
+    }
+}
+
 function cadastrarReserva($conexao, $cpf_cnpj, $rg, $nome, $telefone, $email, $cpf_cnpj_empresa, $nome_empresa, $pagamento, $checkin, $checkout, $id_quarto, $id_cliente, $id_hotel, $status, $hospedes, $pre_pagamento, $nao_reembolsavel, $valor_cobrado, $valor_diarias, $valor_extras, $valor_taxas, $valor_descontos, $valor_total)
 {
     $query = "INSERT INTO `reserva`(`cpf_cnpj`, `rg`, `nome`, `telefone`, `email`, `cpf_cnpj_empresa`, `nome_empresa`, `pagamento`, `checkin`, `checkout`, `id_quarto`, `id_cliente`, `id_hotel`, `status`, `hospedes`, `pre_pagamento`, `nao_reembolsavel`, `valor_cobrado`, `valor_diarias`, `valor_extras`, `valor_taxas`, `valor_descontos`, `valor_total`) VALUES ('$cpf_cnpj', '$rg', '$nome', '$telefone', '$email', '$cpf_cnpj_empresa', '$nome_empresa', '$pagamento', '$checkin', '$checkout', '$id_quarto', '$id_cliente', '$id_hotel', '$status', '$hospedes', '$pre_pagamento', '$nao_reembolsavel', '$valor_cobrado', '$valor_diarias', '$valor_extras', '$valor_taxas', '$valor_descontos', '$valor_total')";
@@ -474,12 +520,54 @@ function selecionarTodasReservasQuarto($conexao, $id)
     }
 }
 
+function selecionarTodasReservasQuartoCheckin($conexao, $id, $checkin)
+{
+    $query = "SELECT * FROM `reserva` where `id_quarto` = '$id' and `checkin` = '$checkin'";
+    $resultado = mysqli_query($conexao, $query);
+    if (!$resultado) {
+        echo '<script>alert("Reserva não encontrado");</script>';
+    } else {
+        foreach ($resultado as $key) {
+            $res[] = $key;
+        }
+        return $res;
+    }
+}
+
 function selecionarTodosQuartos($conexao, $id)
 {
     $query = "SELECT * FROM `apartamento` where `id_hotel` = '$id'";
     $resultado = mysqli_query($conexao, $query);
     if (!$resultado) {
         echo '<script>alert("Quarto não encontrado");</script>';
+    } else {
+        foreach ($resultado as $key) {
+            $res[] = $key;
+        }
+        return $res;
+    }
+}
+
+function selecionarTodasTaxas($conexao, $id)
+{
+    $query = "SELECT * FROM `taxa` where `id_hotel` = '$id'";
+    $resultado = mysqli_query($conexao, $query);
+    if (!$resultado) {
+        echo '<script>alert("Taxa não encontrada");</script>';
+    } else {
+        foreach ($resultado as $key) {
+            $res[] = $key;
+        }
+        return $res;
+    }
+}
+
+function selecionarTodosTiposQuartos($conexao, $id)
+{
+    $query = "SELECT * FROM `tipo_quarto` where `id_hotel` = '$id'";
+    $resultado = mysqli_query($conexao, $query);
+    if (!$resultado) {
+        echo '<script>alert("Tipo de quarto não encontrado");</script>';
     } else {
         foreach ($resultado as $key) {
             $res[] = $key;
@@ -537,7 +625,34 @@ function selecionarReserva($conexao, $id)
     }
 }
 
+function selecionarReservasCliente($conexao, $id)
+{
+    $query = "SELECT * FROM `reserva` WHERE `id_cliente` = $id";
+    $resultado = mysqli_query($conexao, $query);
+    if (!$resultado) {
+        echo '<script>alert("Reserva não encontrada");</script>';
+    } else {
+        foreach ($resultado as $key) {
+            $res[] = $key;
+        }
+        return $res;
+    }
+}
 
+function selecionarReservaQuartoHoje($conexao, $id)
+{
+    $hoje = date('Y-m-d');
+    $query = "SELECT * FROM `reserva` WHERE `id_quarto` = $id and `checkin` = '$hoje'";
+    $resultado = mysqli_query($conexao, $query);
+    if (!$resultado) {
+        echo '<script>alert("Reserva não encontrada");</script>';
+    } else {
+        foreach ($resultado as $key) {
+            $res[] = $key;
+        }
+        return $res[0];
+    }
+}
 
 function selecionarQuartoTipo($conexao, $tipo, $capacidade)
 {   

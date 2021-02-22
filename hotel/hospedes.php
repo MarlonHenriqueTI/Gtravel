@@ -170,7 +170,25 @@ $dados = selecionarTodosHospedes($conexao, $id);
             </div>
 
       </div>
-        
+      <h4 style="color:#4BCC72 ;">Histórico de reservas</h4>
+        <?php $reserva = selecionarReservasCliente($conexao, $key['id']); ?>
+        <div class="row">
+        <?php foreach($reserva as $res){ 
+            $quarto = selecionarQuarto($conexao, $res['id_quarto']);
+            ?>
+            <hr style="border: solid 1px #234567;width: 100%;">
+            <div class="col-12">
+                <h5>Período: <span><?php echo "De ".date('d/m/Y',strtotime($res['checkin']))." até ".date('d/m/Y',strtotime($res['checkout'])); ?></span></h5>
+            </div>
+            <div class="col-6">
+                <h5>Valor: <span><?php echo "R$".$res['valor_total']; ?></span></h5>
+            </div>
+            <div class="col-6">
+                <h5>Quarto: <span><?php echo $quarto['nome']; ?></span></h5>
+            </div>
+        <?php } ?>
+        <hr style="border: solid 1px #234567;width: 100%;">
+        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>

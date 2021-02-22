@@ -96,7 +96,7 @@ if($op == 'reserva') {
     if(!empty($_POST['nao_reembolsavel'])){
         $nao_reembolsavel = $_POST['nao_reembolsavel'];
     } else {
-        $$nao_reembolsavel = 0.00;
+        $nao_reembolsavel = 0.00;
     }
 
     if(!empty($_POST['valor_cobrado'])){
@@ -139,10 +139,30 @@ if($op == 'reserva') {
     foreach($reservas as $key){
         if(($checkin >= $key['checkin']) && ($checkin <= $key['checkout'])){
             echo '<script>alert("Este quarto não esta disponivel para esta data!");window.history.back();</script>';
-        } else if(($chekout >= $key['checkin']) && ($checkout <= $key['checkout'])){
+        } else if(($checkout >= $key['checkin']) && ($checkout <= $key['checkout'])){
             echo '<script>alert("Este quarto não esta disponivel para esta data!");window.history.back();</script>';
-        } else {
-            cadastrarReserva($conexao, $cpf_cnpj, $rg, $nome, $telefone, $email, $cpf_cnpj_empresa, $nome_empresa, $pagamento, $checkin, $checkout, $id_quarto, $id_cliente, $id_hotel, $status, $hospedes, $pre_pagamento, $nao_reembolsavel, $valor_cobrado, $valor_diarias, $valor_extras, $valor_taxas, $valor_descontos, $valor_total);
-        }
+        } 
     }
+
+    $quarto = selecionarQuarto($conexao, $id_quarto);
+    if($quarto['bloqueado']){
+        echo '<script>alert("Este quarto esta bloqueado, por favor selecione um quarto disponivel!");window.history.back();</script>';
+    }
+    cadastrarReserva($conexao, $cpf_cnpj, $rg, $nome, $telefone, $email, $cpf_cnpj_empresa, $nome_empresa, $pagamento, $checkin, $checkout, $id_quarto, $id_cliente, $id_hotel, $status, $hospedes, $pre_pagamento, $nao_reembolsavel, $valor_cobrado, $valor_diarias, $valor_extras, $valor_taxas, $valor_descontos, $valor_total);
+
+}
+
+if($op == 'taxa') {
+    $nome = $_POST['nome'];
+    $descricao = $_POST['descricao'];
+    $valor = $_POST['valor'];
+    $id_hotel = $_POST['id'];
+    cadastrarTaxa($conexao, $id_hotel, $nome, $valor, $descricao);
+}
+
+if($op == 'tipo-quarto') {
+    $nome = $_POST['nome'];
+    $descricao = $_POST['descricao'];
+    $id_hotel = $_POST['id'];
+    cadastrarTipoQuarto($conexao, $id_hotel, $nome, $descricao);
 }

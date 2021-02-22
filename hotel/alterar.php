@@ -3,6 +3,9 @@
 include('header.php');
 
 $op = $_POST['op'];
+if(empty($op)){
+    $op = $_GET['op'];
+}
 
 if ($op == 'adm') {
     if (isset($_POST['nome'])) {
@@ -44,12 +47,8 @@ if ($op == 'hsystem') {
     $password = $_POST['password'];
     $query = "SELECT * FROM `hsystem` WHERE `id_hotel` = '$id_hotel'";
     $resultado = mysqli_query($conexao, $query);
-    foreach ($resultado as $key) {
-        $res[] = $key;
-    }
-    if (count($res == 0)) {
-        cadastrarHsystem($conexao, $id_hotel, $hotelId, $userName, $password);
-    } else {
+    $numResults = mysqli_num_rows($resultado);
+    if ($numResults > 0) {
         if (isset($_POST['hotelId'])) {
             $hotelId = $_POST['hotelId'];
             alterar($id_hotel, 'hsystem', 'hotelId', $hotelId, $conexao);
@@ -66,6 +65,8 @@ if ($op == 'hsystem') {
         }
 
         echo '<script>alert("Alterado com sucesso...");window.history.back();</script>';
+    } else {
+        cadastrarHsystem($conexao, $id_hotel, $hotelId, $userName, $password);
     }
 }
 
@@ -285,4 +286,35 @@ if($op == 'disponibilidade'){
         alterar($id_quarto, 'apartamento', 'status', $status, $conexao);
     }
     echo '<script>alert("Quarto definido como '.$_POST['status'].'");window.history.back();</script>';
+}
+
+if($op == 'processo'){
+    $id_reserva = $_GET['id'];
+    $id_quarto = $_GET['id_quarto'];
+    if (isset($_GET['processo'])) {
+        $processo = $_GET['processo'];
+        alterar($id_reserva, 'reserva', 'processo', $processo, $conexao);
+    }
+
+    if($processo == 'checkin'){
+        alterar($id_quarto, 'apartamento', 'status', 'Ocupado', $conexao);
+        echo '<script>alert("Checkin Realizado com sucesso");window.history.back();</script>';
+    } else if($processo == 'checkout'){
+        alterar($id_quarto, 'apartamento', 'status', 'Limpeza', $conexao);
+        echo '<script>alert("Checkout Realizado com sucesso");window.history.back();</script>';
+    } else {
+        echo '<script>alert("Sucesso");window.history.back();</script>';
+    }
+}
+
+if($op == 'bloquear'){
+    $id_quarto = $_GET['id'];
+    alterar($id_quarto, 'apartamento', 'bloqueado', 1, $conexao);
+    echo '<script>alert("Quarto Bloqueado");window.history.back();</script>';
+}
+
+if($op == 'desbloquear'){
+    $id_quarto = $_GET['id'];
+    alterar($id_quarto, 'apartamento', 'bloqueado', 0, $conexao);
+    echo '<script>alert("Quarto Desbloqueado");window.history.back();</script>';
 }

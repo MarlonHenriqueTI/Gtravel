@@ -34,7 +34,7 @@ foreach($reservas as $key){
         
         ?>
         <div class="col-md-2 col-6">
-          <a href="#">
+          <a href="#"  data-toggle="modal" data-target="<?php echo '#acoes'.$key['id']; ?>">
             <div class="card">
               <div class="card-body apt">
                 <div class="row">
@@ -47,7 +47,9 @@ foreach($reservas as $key){
                 </div>
 
               </div>
-              <?php if ($key['status'] == "Disponivel") { ?>
+              <?php if($key['bloqueado']){ ?>
+                <div class="card-footer bloqueado"></div>
+              <?php } else if ($key['status'] == "Disponivel") { ?>
                 <div class="card-footer disponivel"></div>
               <?php } else if ($key['status'] == "Ocupado") { ?>
                 <div class="card-footer ocupado"></div>
@@ -65,4 +67,50 @@ foreach($reservas as $key){
 </div>
 <!-- Container-fluid Ends-->
 </div>
+
+<?php foreach($dados as $key) { ?>
+
+<!-- Modal -->
+<div class="modal fade" id="<?php echo 'acoes'.$key['id'];?>" tabindex="-1" role="dialog" aria-labelledby="ModalObs" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel"><?php echo $key['nome']; ?></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <?php if(!$key['bloqueado']){?>
+          O que você deseja?
+        <?php } else {?>
+          Este quarto está bloqueado
+        <?php } ?>
+      </div>
+      <div class="modal-footer">
+        <div class="row">
+        <?php if(!$key['bloqueado']){?>
+          <div class="col">
+           <a href="nova-reserva.php?id=<?php echo $key['id'];?>" class="btn btn-primary">Criar Reserva</a>
+          </div>
+          <?php } ?>
+          <div class="col">
+          <?php if(!$key['bloqueado']){?>
+            <a href="alterar.php?id=<?php echo $key['id']; ?>&op=bloquear" class="btn btn-danger">Bloquear Quarto</a>
+            <?php } else {?>
+              <a href="alterar.php?id=<?php echo $key['id']; ?>&op=desbloquear" class="btn btn-danger">Desbloquear Quarto</a>
+            <?php } ?>
+          </div>
+          <?php if(!$key['bloqueado']){?>
+          <div class="col">
+            <a href="reserva-quarto-hoje.php?id=<?php echo $key['id']; ?>" class="btn btn-warning">Ver Reserva De Hoje</a>
+          </div>
+          <?php } ?>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<? } ?>
+
 <?php include('footer.php'); ?>

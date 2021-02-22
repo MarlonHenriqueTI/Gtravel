@@ -109,6 +109,11 @@ select {
     background: yellow;
 }
 
+.card-footer.bloqueado {
+    padding: 6%!important;
+    background: rgb(0, 0, 0);
+}
+
 .card-body.apt {
     padding: 20px 20px 50px;
     color: #464545;
@@ -257,3 +262,12 @@ select {
     margin-left: 0;
     margin-right: 0;
   }
+
+.com-borda {
+    border: solid 1px #dfdfdf7c!important;
+}
+
+#reserva-mapa {
+    font-size: 0.8em;
+    width: 100%;
+}

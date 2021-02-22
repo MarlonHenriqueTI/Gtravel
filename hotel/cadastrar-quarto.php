@@ -1,6 +1,7 @@
 <?php include('header.php'); 
 
 $tipos = capturarTiposQuarto($hotelId, $userNameHsystem, $password);
+$tip = selecionarTodosTiposQuartos($conexao, $id);
 ?>
 
 <div class="page-body">
@@ -39,18 +40,22 @@ $tipos = capturarTiposQuarto($hotelId, $userNameHsystem, $password);
                                             <input type="text" class="form-control" name="nome" required placeholder="UH 102">
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Tipo</label>
                                             <select name="tipo" class="form-control">
                                                 <option value="" disabled>Selecione o tipo de quarto</option>
+                                                <?php foreach($tip as $key){?>
+                                                    <option value="<?php echo $key['id']; ?>"><?php echo $key['nome']; ?></option>
+                                                <?php } ?>
                                                 <?php foreach($tipos['roomRate'] as $quarto){?>
                                                     <option value="<?php echo $quarto['@attributes']['id']; ?>"><?php echo $quarto['@attributes']['name']; ?></option>
                                                 <?php } ?>
                                             </select>
+                                            <small>Você pode cadastrar um novo tipo de quarto <a href="#" data-toggle="modal" data-target="#tipodequarto">clicando aqui</a></small>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-3">
                                         <div class="form-group">
                                             <label>Capacidade</label>
                                             <input type="number" name="capacidade" required class="form-control" placeholder="O numero de hospedes">
@@ -77,6 +82,38 @@ $tipos = capturarTiposQuarto($hotelId, $userNameHsystem, $password);
         </div>
     </div>
     <!-- Container-fluid Ends-->
+</div>
+
+<div class="modal fade" id="tipodequarto" tabindex="-1" role="dialog" aria-labelledby="ModalObs" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Cadastrar Tipo De Quarto</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="cadastrar.php" method="POST">
+      <div class="modal-body">
+        <div class="form-group">
+            <label>Nome</label>
+            <input type="text" class="form-control" name="nome">
+        </div> 
+        <div class="form-group">
+            <label>Descrição</label>
+            <input type="text" class="form-control" name="descricao">
+        </div>     
+        <input type="hidden" name="id" value="<?php echo $id;?>"> 
+        <input type="hidden" name="op" value="tipo-quarto"> 
+
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Cadastrar novo tipo de quarto</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+      </div>
+      </form>
+    </div>
+  </div>
 </div>
 
 

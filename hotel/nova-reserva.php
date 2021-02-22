@@ -78,7 +78,7 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-3">
                                         <div class="form-group">
                                             <label>Numero de hospedes</label>
                                             <input type="number" class="form-control" name="hospedes">
@@ -87,24 +87,24 @@
                                     
                                     <div class="col-md-2">
                                         <div class="form-group">
-                                            <label class="titulo-form">Check-In</label>
+                                            <label>Check-In</label>
                                             <input type="date" class="form-control" name="checkin" required>
                                         </div>
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-group">
-                                            <label class="titulo-form">Check-Out</label>
+                                            <label>Check-Out</label>
                                             <input type="date" class="form-control" name="checkout">
                                         </div>
                                     </div>
-                                    <div class="col-md-2">
+                                    <div class="col-md-5">
                                         <div class="form-group">
-                                            <label class="titulo-form">UH</label>
+                                            <label>UH</label>
                                             <?php $dados = selecionarTodosQuartos($conexao, $id); ?>
                                             <select name="quarto" class="form-control">
                                                 <?php foreach ($dados as $key) { ?>}
-                                                <option value="<?php echo $key['id']; ?>"><?php echo $key['nome']; ?></option>
-                                            <?php } ?>
+                                                    <option value="<?php echo $key['id']; ?>"><?php echo $key['nome']; ?></option>
+                                                <?php } ?>
                                             </select>
                                         </div>
                                     </div>
@@ -113,55 +113,62 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label class="titulo-form">Pré Pagamento</label>
+                                            <label>Pré Pagamento</label>
                                             <input type="number" step="0.01" class="form-control" id="dinheiro" name="pre_pagamento">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label class="titulo-form">Não Reembolsável</label>
+                                            <label>Não Reembolsável</label>
                                             <input type="number" step="0.01" class="form-control" id="dinheiro" name="nao_reembolsavel">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label class="titulo-form">Valor Que Já Foi Pago</label>
+                                            <label>Valor Que Já Foi Pago</label>
                                             <input type="number" step="0.01" class="form-control" id="dinheiro" name="valor_cobrado">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label class="titulo-form">Valor Das Diarias</label>
+                                            <label>Valor Das Diarias</label>
                                             <input type="number" step="0.01" class="form-control" id="dinheiro" name="valor_diarias">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label class="titulo-form">Valores Extras</label>
+                                            <label>Valores Extras</label>
                                             <input type="number" step="0.01" class="form-control" id="dinheiro" name="valor_extras">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label class="titulo-form">Taxas</label>
-                                            <input type="number" step="0.01" class="form-control" id="dinheiro" name="valor_taxas">
+                                            <label>Taxas</label>
+                                            <?php $taxa = selecionarTodasTaxas($conexao, $id); ?>
+                                            <select name="valor_taxas" class="form-control">
+                                                <option value="">Selecione uma taxa</option>
+                                                <?php foreach ($taxa as $key) { ?>}
+                                                    <option value="<?php echo $key['valor']; ?>"><?php echo $key['nome']." R$".$key['valor']; ?></option>
+                                                <?php } ?>
+                                            </select>
+                                            <small>Não tem nenhuma taxa cadastrada? <a href="#"  data-toggle="modal" data-target="#taxa">Clique aqui para cadastrar</a></small>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label class="titulo-form">Descontos</label>
+                                            <label>Descontos</label>
                                             <input type="number" step="0.01" class="form-control" id="dinheiro" name="valor_descontos">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label class="titulo-form">Total</label>
+                                            <label>Total</label>
                                             <input type="number" step="0.01" class="form-control" id="dinheiro" name="valor_total">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label class="titulo-form">Status</label>
+                                            <label>Status</label>
                                             <select name="status" class="form-control">
                                                 <option value="Pago">Pago</option>
                                                 <option value="Pendente">Pendente</option>
@@ -170,7 +177,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label class="titulo-form">Pagamento</label>
+                                            <label>Pagamento</label>
                                             <select name="pagamento" class="form-control">
                                                 <option value="A vista">A vista</option>
                                                 <option value="Credito">Credito</option>
@@ -193,6 +200,42 @@
         </div>
     </div>
     <!-- Container-fluid Ends-->
+</div>
+
+<div class="modal fade" id="taxa" tabindex="-1" role="dialog" aria-labelledby="ModalObs" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Cadastrar Nova Taxa</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="cadastrar.php" method="POST">
+      <div class="modal-body">
+        <div class="form-group">
+            <label>Nome</label>
+            <input type="text" class="form-control" name="nome">
+        </div> 
+        <div class="form-group">
+            <label>Descrição</label>
+            <input type="text" class="form-control" name="descricao">
+        </div>  
+        <div class="form-group">
+            <label>Valor</label>
+            <input type="number" step="0.01" class="form-control" id="dinheiro" name="valor">
+        </div>   
+        <input type="hidden" name="id" value="<?php echo $id;?>"> 
+        <input type="hidden" name="op" value="taxa"> 
+
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Cadastrar nova taxa</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+      </div>
+      </form>
+    </div>
+  </div>
 </div>
 
 
