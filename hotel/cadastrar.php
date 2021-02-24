@@ -78,7 +78,11 @@ if($op == 'reserva') {
     $id_quarto = $_POST['quarto'];
     $id_hotel = $_POST['id'];
     $status = $_POST['status'];
-    $hospedes = $_POST['hospedes'];
+    if(!empty($_POST['hospedes'])){
+        $hospedes = $_POST['hospedes'];
+    } else {
+        $hospedes = 0;
+    }
     $clientes = selecionarHospedeCPF($conexao, $cpf_cnpj);
     if(empty($clientes)){
         cadastrarHospedeReserva($conexao, $nome, $email, $telefone, $cpf_cnpj, $id_hotel);
@@ -117,8 +121,8 @@ if($op == 'reserva') {
         $valor_extras = 0.00;
     }
     
-    if(!empty($_POST['valor_taxas'])){
-        $valor_taxas = $_POST['valor_taxas'];
+    if(!empty($_POST['taxas'])){
+        $valor_taxas = $_POST['taxas'];
     } else {
         $valor_taxas = 0.00;
     }

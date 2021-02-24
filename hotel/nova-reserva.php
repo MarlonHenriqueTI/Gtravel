@@ -34,19 +34,19 @@
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label>CPF/CNPJ</label>
-                                            <input type="text" class="form-control" name="cpf_cnpj" required placeholder="CPF ou CNPJ do cliente">
+                                            <input type="text" class="form-control" name="cpf_cnpj"  placeholder="CPF ou CNPJ do cliente">
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label>RG</label>
-                                            <input type="text" class="form-control" name="rg" required placeholder="RG do cliente">
+                                            <input type="text" class="form-control" name="rg"  placeholder="RG do cliente">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Nome</label>
-                                            <input type="text" name="nome" required class="form-control">
+                                            <input type="text" name="nome"  class="form-control">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -88,7 +88,7 @@
                                     <div class="col-md-2">
                                         <div class="form-group">
                                             <label>Check-In</label>
-                                            <input type="date" class="form-control" name="checkin" required>
+                                            <input type="date" class="form-control" name="checkin" >
                                         </div>
                                     </div>
                                     <div class="col-md-2">
@@ -145,7 +145,7 @@
                                         <div class="form-group">
                                             <label>Taxas</label>
                                             <?php $taxa = selecionarTodasTaxas($conexao, $id); ?>
-                                            <select name="valor_taxas" class="form-control">
+                                            <select name="taxas" class="form-control">
                                                 <option value="">Selecione uma taxa</option>
                                                 <?php foreach ($taxa as $key) { ?>}
                                                     <option value="<?php echo $key['valor']; ?>"><?php echo $key['nome']." R$".$key['valor']; ?></option>

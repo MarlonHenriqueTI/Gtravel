@@ -265,9 +265,32 @@ select {
 
 .com-borda {
     border: solid 1px #dfdfdf7c!important;
+    text-overflow: ellipsis!important;
 }
 
 #reserva-mapa {
     font-size: 0.8em;
     width: 100%;
+    text-overflow: ellipsis!important;
+    white-space: nowrap!important;
+}
+
+.card-body.apt.apto-ocupado {
+    padding-bottom: 10px;
+}
+
+.card-body.apt.apto-ocupado .menor {
+    font-size: 10px;
+    text-align: center;
+}
+
+#tmapa {
+    width: 100%;
+    table-layout: fixed;
+}
+
+#tmapa th,#tmapa td {
+    overflow: hidden;
+    width: 100px;
+    text-align: center;
 }

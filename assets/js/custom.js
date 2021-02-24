@@ -125,3 +125,20 @@ function attFiltro(sel, comando, pagina) {
         }
     }
 }
+
+$(function() {
+
+    jQuery.fn.exists = function(){return this.length>0;}
+    
+    // Dynamic Colspan
+    if($('[colspan="auto"]').exists())
+    {
+        $.each($('[colspan="auto"]'), function( index, value ) {
+            var table = $(this).closest('table');    // Get Table
+            var siblings = $(this).closest('tr').find('th:visible, td:visible').not('[colspan="auto"]').length; // Count colspan siblings
+            var numCols = table.find('tr').first().find('th:visible, td:visible').length; // Count visible columns
+            $(this).attr('colspan', numCols.toString()-siblings); // Update colspan attribute
+        });
+    }
+
+});

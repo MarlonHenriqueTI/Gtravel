@@ -24,10 +24,10 @@ $dados = selecionarTodasReservas($conexao, $id);
     <div class="container-fluid">
         <div class="table-responsive">
             <div id="basic-1_wrapper" class="dataTables_wrapper no-footer">
-                <table class="display dataTable no-footer" id="basic-1" role="grid" aria-describedby="basic-1_info">
+                <table class="display dataTable no-footer" id="tmapa" role="grid" aria-describedby="basic-1_info">
                     <thead>
                         <tr role="row">
-                            <th>UH</th>
+                            <th style="width: 70px;">UH</th>
                             <th><?php echo date('d/m'); ?></th>
                             <th><?php echo date('d/m', strtotime("+ 1 day")); ?></th>
                             <?php $i = 2;
@@ -42,7 +42,7 @@ $dados = selecionarTodasReservas($conexao, $id);
                         foreach ($quartos as $key) {
                         ?>
                             <tr>
-                                <td><strong><?php echo $key['nome']; ?></strong></td>
+                                <td style="width: 70px;"><strong><?php echo $key['nome']; ?></strong></td>
                                 <?php $j = 0;
                                 while ($j <= 30) {
                                     if ($j == 0) {
@@ -58,14 +58,11 @@ $dados = selecionarTodasReservas($conexao, $id);
                                 ?>
                                         <td class="com-borda"></td>
                                     <?php } else {
+                                        $frase = explode(" ", $reserva[0]['nome']);
                                     ?>
-                                        <td class="com-borda" colspan="<?php echo $dias; ?>"><a href="#" <?php if($reserva[0]['processo'] == 'disponivel'){?>class="btn btn-primary"<?php } else if($reserva[0]['processo'] == 'checkout'){?>class="btn btn-danger"<?php } else if($reserva[0]['processo'] == 'limpeza'){?>class="btn btn-dark"<?php } else { ?>class="btn btn-warning"<?php } ?>  id="reserva-mapa" data-toggle="modal" data-target="<?php echo '#reserva'.$reserva[0]['id']; ?>"><?php echo $reserva[0]['nome']; ?></a></td>
+                                        <td class="com-borda" colspan="<?php echo $dias; ?>"><a href="#" <?php if($reserva[0]['processo'] == 'disponivel'){?>class="btn btn-primary"<?php } else if($reserva[0]['processo'] == 'checkout'){?>class="btn btn-danger"<?php } else if($reserva[0]['processo'] == 'limpeza'){?>class="btn btn-dark"<?php } else { ?>class="btn btn-warning"<?php } ?>  id="reserva-mapa" data-toggle="modal" data-target="<?php echo '#reserva'.$reserva[0]['id']; ?>"><?php echo $frase[0]; ?></a></td>
                                 <?php }
-                                    if ($dias == 0) {
-                                        $j++;
-                                    } else {
-                                        $j = $j + $dias;
-                                    }
+                                    $j++;
                                 } ?>
                             </tr>
                         <?php } ?>
@@ -105,31 +102,7 @@ $dados = selecionarTodasReservas($conexao, $id);
                 <?php } ?>
             </div>
             <div class="col-12">
-                <h5>ID: <span><?php echo $res['id']; ?></span></h5>
-            </div>
-            <div class="col-12">
-                <h5>CPF/CNPJ: <span><?php echo $res['cpf_cnpj']; ?></span></h5>
-            </div>
-            <div class="col-12">
-                <h5>RG: <span><?php echo $res['rg']; ?></span></h5>
-            </div>
-            <div class="col-12">
                 <h5>Nome: <span><?php echo $res['nome']; ?></span></h5>
-            </div>
-            <div class="col-12">
-                <h5>Telefone: <span><?php echo $res['telefone']; ?></span></h5>
-            </div>
-            <div class="col-12">
-                <h5>E-mail: <span><?php echo $res['email']; ?></span></h5>
-            </div>
-            <div class="col-12">
-                <h5>CNPJ da empresa: <span><?php echo $res['cpf_cnpj_empresa']; ?></span></h5>
-            </div>
-            <div class="col-12">
-                <h5>Nome da empresa: <span><?php echo $res['nome_empresa']; ?></span></h5>
-            </div>
-            <div class="col-12">
-                <h5>Pagamento: <span><?php echo $res['pagamento']; ?></span></h5>
             </div>
             <div class="col-12">
                 <h5>Check-in: <span><?php echo date('d/m/Y',strtotime($res['checkin'])); ?></span></h5>
@@ -137,42 +110,9 @@ $dados = selecionarTodasReservas($conexao, $id);
             <div class="col-12">
                 <h5>Check-out: <span><?php echo date('d/m/Y',strtotime($res['checkout'])); ?></span></h5>
             </div>
-            <div class="col-12">
-                <h5>Data de cadastro da reserva: <span><?php echo date('d/m/Y H:i:s',strtotime($res['data'])); ?></span></h5>
-            </div>
             <?php $quarto = selecionarQuarto($conexao, $res['id_quarto']); ?>
             <div class="col-12">
                 <h5>Quarto: <span><?php echo $quarto['nome']; ?></span></h5>
-            </div>
-            <div class="col-12">
-                <h5>ID do cliente: <span><?php echo $res['id_cliente']; ?></span></h5>
-            </div>
-            <div class="col-12">
-                <h5>Status: <span><?php echo $res['status']; ?></span></h5>
-            </div>
-            <div class="col-12">
-                <h5>Hospedes: <span><?php echo $res['hospedes']; ?></span></h5>
-            </div>
-            <div class="col-12">
-                <h5>Pré-pagamento: <span><?php echo "R$".$res['pre_pagamento']; ?></span></h5>
-            </div>
-            <div class="col-12">
-                <h5>Não reembolsável: <span><?php echo "R$".$res['nao_reembolsavel']; ?></span></h5>
-            </div>
-            <div class="col-12">
-                <h5>Valor total já cobrado: <span><?php echo "R$".$res['valor_cobrado']; ?></span></h5>
-            </div>
-            <div class="col-12">
-                <h5>Valor das diarias: <span><?php echo "R$".$res['valor_diarias']; ?></span></h5>
-            </div>
-            <div class="col-12">
-                <h5>Extras: <span><?php echo "R$".$res['valor_extras']; ?></span></h5>
-            </div>
-            <div class="col-12">
-                <h5>Taxas: <span><?php echo "R$".$res['valor_taxas']; ?></span></h5>
-            </div>
-            <div class="col-12">
-                <h5>Descontos: <span><?php echo "R$".$res['valor_descontos']; ?></span></h5>
             </div>
             <div class="col-12">
                 <h5>Valor Que Ainda Deve Ser Pago: <span><?php echo "R$".($res['valor_total']-$res['pre_pagamento']-$res['valor_descontos']); ?></span></h5>
@@ -183,6 +123,7 @@ $dados = selecionarTodasReservas($conexao, $id);
       </div>
       </div>
       <div class="modal-footer">
+        <a href="editar-reserva.php?id=<?php echo $res['id']; ?>"  class="btn btn-warning">Editar Reserva</a>          
       <?php if($res['processo'] == 'disponivel') { ?>
         <a href="alterar.php?id=<?php echo $res['id']; ?>&op=processo&processo=checkin&id_quarto=<?php echo $res['id_quarto']; ?>"  class="btn btn-primary">Fazer Checkin</a>
         <?php } else if($res['processo'] == 'checkin'){?>

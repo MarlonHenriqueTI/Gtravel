@@ -522,7 +522,7 @@ function selecionarTodasReservasQuarto($conexao, $id)
 
 function selecionarTodasReservasQuartoCheckin($conexao, $id, $checkin)
 {
-    $query = "SELECT * FROM `reserva` where `id_quarto` = '$id' and `checkin` = '$checkin'";
+    $query = "SELECT * FROM `reserva` where `id_quarto` = '$id' and DATE(`checkin`) = DATE('$checkin')";
     $resultado = mysqli_query($conexao, $query);
     if (!$resultado) {
         echo '<script>alert("Reserva não encontrado");</script>';
@@ -653,6 +653,22 @@ function selecionarReservaQuartoHoje($conexao, $id)
         return $res[0];
     }
 }
+
+function selecionarReservasFuturasQuarto($conexao, $id)
+{
+    $hoje = date('Y-m-d');
+    $query = "SELECT * FROM `reserva` WHERE `id_quarto` = $id and `checkin` > '$hoje'";
+    $resultado = mysqli_query($conexao, $query);
+    if (!$resultado) {
+        echo '<script>alert("Reserva não encontrada");</script>';
+    } else {
+        foreach ($resultado as $key) {
+            $res[] = $key;
+        }
+        return $res;
+    }
+}
+
 
 function selecionarQuartoTipo($conexao, $tipo, $capacidade)
 {   

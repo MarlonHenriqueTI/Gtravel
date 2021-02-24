@@ -36,7 +36,7 @@ foreach($reservas as $key){
         <div class="col-md-2 col-6">
           <a href="#"  data-toggle="modal" data-target="<?php echo '#acoes'.$key['id']; ?>">
             <div class="card">
-              <div class="card-body apt">
+              <div class="card-body apt <?php if($key['status'] == 'Ocupado'){ echo "apto-ocupado"; } ?>">
                 <div class="row">
                   <div class="col-8" style="padding-right: 0;">
                     <h5><?php echo $key['nome']; ?></h5>
@@ -44,6 +44,18 @@ foreach($reservas as $key){
                   <div class="col" style="padding-left: 0;">
                     <small><?php echo $key['capacidade']; ?> <i class="fas fa-user"></i></small>
                   </div>
+                  <?php if ($key['status'] == "Ocupado") { ?>
+                      <div class="col-12 menor"  style="padding-top: 10px;">
+                        <?php 
+                          $reserva = selecionarReservaQuartoHoje($conexao, $key['id']); 
+                          $frase = explode(" ", $reserva['nome']);
+                          echo $frase[0];
+                        ?>
+                      </div>
+                      <div class="col-12 menor">
+                        <small>Falta Pagar: <?php echo "R$".($reserva['valor_total']-$reserva['pre_pagamento']-$reserva['valor_descontos']); ?></small>
+                      </div>
+                  <?php } ?>
                 </div>
 
               </div>
@@ -81,9 +93,40 @@ foreach($reservas as $key){
         </button>
       </div>
       <div class="modal-body">
-        <?php if(!$key['bloqueado']){?>
-          O que você deseja?
+        <?php if(!$key['bloqueado']){
+          $reserva = selecionarReservaQuartoHoje($conexao, $key['id']);
+          $futuras = selecionarReservasFuturasQuarto($conexao, $key['id']);
+          if($reserva['processo'] == 'checkin'){?>
+          <div class="row">
+            <div class="col-12">
+                <h5>Hospede: <span><?php echo $reserva['nome']; ?></span></h5>
+            </div>
+            <div class="col-12">
+                <h5>Valor Total: <span><?php echo "R$".$reserva['valor_total']; ?></span></h5>
+            </div>
+            <div class="col-12">
+                <h5>Ainda Deve Ser Pago: <span><?php echo "R$".($reserva['valor_total']-$reserva['pre_pagamento']-$reserva['valor_descontos']); ?></span></h5>
+            </div>
+            <hr style="border: solid #DEE2E6 1px; width: 100%;">
+            <div class="col-12">
+                <h5 style="color:#4BCC72 ; padding-top: 10px;">RESERVAS FUTURAS PARA ESTE QUARTO</h5>
+            </div>
+            <?php foreach($futuras as $fut){?>
+            <hr style="border: solid #DEE2E6 1px; width: 100%;">
+              <div class="col-12">
+                <h5>Hospede: <span><?php echo $fut['nome']; ?></span></h5>
+              </div>
+              <div class="col-6">
+                  <h5>Valor Total: <span><?php echo "R$".$fut['valor_total']; ?></span></h5>
+              </div>
+              <div class="col-6">
+                  <h5>Checkin: <span><?php echo date('d/m/Y', strtotime($fut['checkin'])); ?></span></h5>
+              </div>
+            <? } ?>
+          </div>
         <?php } else {?>
+          O que você deseja?
+        <?php }} else {?>
           Este quarto está bloqueado
         <?php } ?>
       </div>
