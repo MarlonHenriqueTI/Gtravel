@@ -213,10 +213,10 @@ if($op == "quarto"){
         foreach($tipos['roomRate'] as $quarto){
             if($quarto['@attributes']['id'] == $tipo){
                 $nome_quarto = $quarto['@attributes']['name'];
+                alterar($id_quarto, 'apartamento', 'tipo', $nome_quarto, $conexao);
+                alterar($id_quarto, 'apartamento', 'id_tipo', $tipo, $conexao);
             }
-        }
-        alterar($id_quarto, 'apartamento', 'tipo', $nome_quarto, $conexao);
-        alterar($id_quarto, 'apartamento', 'id_tipo', $tipo, $conexao);
+        }  
     }    
     echo '<script>alert("Quarto atualizado com sucesso!");window.history.back();</script>';
 }

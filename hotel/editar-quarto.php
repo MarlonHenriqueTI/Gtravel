@@ -36,7 +36,7 @@ $tipos = capturarTiposQuarto($hotelId, $userNameHsystem, $password);
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label>Nome / Numero</label>
-                                            <input type="text" class="form-control" value="<?php echo $quarto['nome']; ?>" name="nome" required placeholder="UH 102">
+                                            <input type="text" class="form-control" value="<?php echo $quarto['nome']; ?>" name="nome" placeholder="UH 102">
                                         </div>
                                     </div>
                                     <div class="col-md-3">
@@ -45,8 +45,8 @@ $tipos = capturarTiposQuarto($hotelId, $userNameHsystem, $password);
                                             <select name="tipo" class="form-control">
                                                 <option value="" disabled>Selecione o tipo de quarto</option>
                                                 <option value="<?php echo $quarto['id_tipo']; ?>" selected><?php echo $quarto['tipo']; ?></option>
-                                                <?php foreach($tipos['roomRate'] as $quarto){?>
-                                                    <option value="<?php echo $quarto['@attributes']['id']; ?>"><?php echo $quarto['@attributes']['name']; ?></option>
+                                                <?php foreach($tipos['roomRate'] as $key){?>
+                                                    <option value="<?php echo $key['@attributes']['id']; ?>"><?php echo $key['@attributes']['name']; ?></option>
                                                 <?php } ?>
                                             </select>
                                         </div>
@@ -54,7 +54,7 @@ $tipos = capturarTiposQuarto($hotelId, $userNameHsystem, $password);
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Capacidade</label>
-                                            <input type="number" name="capacidade" value="<?php echo $quarto['capacidade']; ?>" required class="form-control" placeholder="O numero de hospedes">
+                                            <input type="number" name="capacidade" value="<?php echo $quarto['capacidade']; ?>" class="form-control" placeholder="O numero de hospedes">
                                         </div>
                                     </div>
                                     <div class="col-md-12">
